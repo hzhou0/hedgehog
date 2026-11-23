@@ -1,10 +1,9 @@
 # End-to-end environment: k3s (via k3d) with an in-cluster registry, Hedgehog from deploy/hedgehog.yaml, and the
 # e2e test in e2e/. The test also needs grype on the host, at the version the Dockerfile pins.
 #
-#   k3d cluster create --config e2e/k3d.yaml --kubeconfig-switch-context=false
-#   tilt up --context k3d-hedgehog-e2e   # dev loop: rebuilds on change; the e2e resource runs once Hedgehog is up
-#   tilt ci --context k3d-hedgehog-e2e   # one-shot: exits non-zero if the e2e test fails
-#   k3d cluster delete hedgehog-e2e
+#   make dev              # creates the cluster if needed, then tilt up: rebuilds on change
+#   make e2e              # creates the cluster if needed, then tilt ci: exits non-zero if the e2e test fails
+#   make cluster-delete
 
 allow_k8s_contexts('k3d-hedgehog-e2e')
 

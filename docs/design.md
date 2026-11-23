@@ -16,11 +16,10 @@ vulnerabilities in running container images. It:
    team's next change must fix the issue properly.
 
 Principles:
-- **No knobs.** The behaviour is fixed. The inputs are environment variables: the destination repository
-  (`DESTINATION`) and its push credentials (`DESTINATION_USERNAME`, `DESTINATION_PASSWORD`, from a Secret in the
-  manifest), plus two optional settings: scan concurrency (`SCAN_WORKERS`, default 2, sized together with the memory
-  limit), copa's experimental language package updates (`LANGUAGE_UPDATES`, default off), and the namespaces Hedgehog
-  leaves alone entirely (`EXCLUDE_NAMESPACES`, comma-separated, default none).
+- **No extra moving parts.** Only `DESTINATION` is required (plus push credentials `DESTINATION_USERNAME`,
+  `DESTINATION_PASSWORD` from a Secret in the manifest). Every value the design names below is an environment
+  variable defaulting to that value; there are no CRDs or config files. The full list is in the header of
+  `deploy/hedgehog.yaml`.
 - **No access to workload secrets.** Source images are pulled anonymously and nodes pull patched images without a pull
   secret. Hedgehog reads no Secrets; credentials it needs are passed in as environment variables.
 - **Reactive.** When nothing is being mitigated, Hedgehog stays out of the admission path apart from a cache lookup.
@@ -108,7 +107,7 @@ type ImageRecord struct {
     Findings   []Finding `json:"findings"`   // actionable findings only; empty = clean
     Patched    string    `json:"patched"`    // patched digest; non-empty = active rewrite
     PatchedFor []string  `json:"patchedFor"` // vulnerability IDs the patch covers; new findings trigger a re-patch (§6.3)
-    Error      string    `json:"error"`      // last patch failure (e.g. EOL distro); retried once per new grype DB
+    PatchError string    `json:"patchError"` // last patch failure (e.g. EOL distro); retried once per new grype DB
 }
 ```
 
@@ -152,11 +151,11 @@ Measured on a workstation (16 cores, fast network; in-cluster will be slower):
 ### 6.1 copa (`copa generate`)
 
 Convert actionable grype matches to a **copa v1alpha2** report: `osupdates` for apk/deb/rpm, and, only with
-`LANGUAGE_UPDATES=true`, `langupdates` for npm/pip/etc. (copa's experimental support: `COPA_EXPERIMENTAL=1`,
-`--pkg-types os,library`). With it off, language package findings are unpatchable. Mapping: `artifact.name` → `name`, `artifact.version` → `installedVersion`,
+`PATCH_DEPENDENCIES=true`, `langupdates` for application dependencies (npm/pip/etc.) (copa's experimental support: `COPA_EXPERIMENTAL=1`,
+`--pkg-types os,library`). With it off, dependency findings are unpatchable. Mapping: `artifact.name` → `name`, `artifact.version` → `installedVersion`,
 target → `fixedVersion`, `vulnerability.id` → `vulnerabilityID`; `metadata.os` comes from grype `distro`. Then run:
 `copa generate --scanner native -r report.json -i <src@digest> --addr tcp://127.0.0.1:1234 --output-context ctx.tar`.
-Skip this step if there are no OS or language updates.
+Skip this step if there are no OS or dependency updates.
 
 `copa generate` runs the package manager in BuildKit and outputs a build context: a Dockerfile
 (`FROM <src>` / `COPY patch/ /`) and the changed files under `patch/`. Hedgehog **doesn't build that Dockerfile**:
