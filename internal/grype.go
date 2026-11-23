@@ -68,8 +68,8 @@ type finding struct {
 	Target      string   `json:"target"` // nearest fixed version above Version; "" if none
 }
 
-// actionable applies the fixed scope rule: grype risk > 90 and a fix exists. Highest risk first.
-func actionable(doc *grypeDoc) []finding {
+// actionable keeps findings above riskThreshold that have a fix, highest risk first.
+func actionable(doc *grypeDoc, riskThreshold float64) []finding {
 	var out []finding
 	for _, m := range doc.Matches {
 		v, a := m.Vulnerability, m.Artifact
@@ -89,8 +89,7 @@ func actionable(doc *grypeDoc) []finding {
 	return out
 }
 
-// nearestFix picks the lowest fix version above installed, even across major versions. grype can list fixes from
-// release lines below the installed one (11.0.0 for node 16.20.2); those are ignored.
+// nearestFix picks the lowest fix above installed. grype also lists fixes in older lines (11.0.0 for node 16.20.2).
 func nearestFix(installed string, fixes []string) string {
 	best := ""
 	for _, f := range fixes {
@@ -110,9 +109,7 @@ func vulnIDs(fs []finding) []string {
 	return slices.Compact(ids)
 }
 
-// compareVersions is an ecosystem-agnostic ordering, good enough within one package (semver, apk -rN, deb/rpm
-// epochs and revisions). Versions are compared run by run (digits, letters; separators ignored). copa does the
-// authoritative per-package-manager resolution.
+// compareVersions orders versions of one package in any ecosystem well enough to pick a fix; copa resolves exactly.
 func compareVersions(a, b string) int {
 	ea, ta := versionTokens(a)
 	eb, tb := versionTokens(b)
@@ -134,8 +131,7 @@ func compareVersions(a, b string) int {
 	return 0
 }
 
-// Token kinds in sort order: a letter run after the end of the other version is a pre-release (1.0rc1 < 1.0), a
-// number is a later release (1.0 < 1.0.1).
+// Token kinds in sort order, so 1.0rc1 < 1.0 < 1.0.1.
 const (
 	rankLetters = iota
 	rankEnd
@@ -152,7 +148,6 @@ func tokenRank(tokens []string, i int) (rank int, n uint64) {
 	return rankLetters, 0
 }
 
-// versionTokens splits off a deb/rpm epoch ("1:") and returns the digit and letter runs of the rest.
 func versionTokens(v string) (epoch int, tokens []string) {
 	v = strings.TrimPrefix(v, "v")
 	if e, rest, ok := strings.Cut(v, ":"); ok {
@@ -179,22 +174,13 @@ func versionTokens(v string) (epoch int, tokens []string) {
 	return epoch, tokens
 }
 
-// The syft and grype binaries ship pinned in the image. The vulnerability DB lives on the PV and is only updated
-// explicitly (updateDB), never as a side effect of a scan.
-
-// sbom writes a syft-json SBOM of ref, pulled straight from the registry, to out.
-func sbom(ctx context.Context, ref, platform, dockerConfigDir, out string) error {
-	var env []string
-	if dockerConfigDir != "" {
-		env = []string{"DOCKER_CONFIG=" + dockerConfigDir}
-	}
-	_, err := execTool(ctx, env, "syft", "registry:"+ref, "-o", "syft-json="+out, "-q", "--platform", platform)
+func generateSBOM(ctx context.Context, ref, platform, out string) error {
+	_, err := runTool(ctx, nil, "syft", "registry:"+ref, "-o", "syft-json="+out, "-q", "--platform", platform)
 	return err
 }
 
-// match matches a saved SBOM against the local vulnerability DB.
-func match(ctx context.Context, sbomPath string) (*grypeDoc, error) {
-	out, err := execTool(ctx, nil, "grype", "sbom:"+sbomPath, "-o", "json", "-q")
+func matchSBOM(ctx context.Context, sbomPath string) (*grypeDoc, error) {
+	out, err := runTool(ctx, nil, "grype", "sbom:"+sbomPath, "-o", "json", "-q")
 	if err != nil {
 		return nil, err
 	}
@@ -205,8 +191,8 @@ func match(ctx context.Context, sbomPath string) (*grypeDoc, error) {
 	return &doc, nil
 }
 
-// execTool runs one of the bundled CLIs with Hedgehog's fixed settings plus env.
-func execTool(ctx context.Context, env []string, bin string, args ...string) ([]byte, error) {
+// runTool runs a bundled CLI. The grype DB only updates through updateDBs.
+func runTool(ctx context.Context, env []string, bin string, args ...string) ([]byte, error) {
 	cmd := exec.CommandContext(ctx, bin, args...)
 	cmd.Env = append(os.Environ(),
 		"GRYPE_DB_CACHE_DIR="+dataDir+"/grype-db",

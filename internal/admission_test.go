@@ -23,7 +23,7 @@ func testWebhooks(active bool) *webhooks {
 	w.snap.Store(&snapshot{
 		Active: active,
 		Images: map[string]imageState{
-			vulnDigest:    {Actionable: true, Patched: patchedRef, Message: "CVE-2026-111497 in node"},
+			vulnDigest:    {Actionable: true, Patched: patchedRef, DenyMessage: "CVE-2026-111497 in node"},
 			patchedDigest: {},
 		},
 		Tags: map[string]string{"index.docker.io/library/node:16-alpine": vulnDigest},
@@ -45,7 +45,7 @@ func TestCheck(t *testing.T) {
 		{"idle: unknown allowed without a scan", false, "busybox:1", true},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			if _, msg := testWebhooks(tc.active).check(context.Background(), obj{"containers": []any{obj{"image": tc.image}}}); (msg == "") != tc.allowed {
+			if _, msg := testWebhooks(tc.active).checkImages(context.Background(), obj{"containers": []any{obj{"image": tc.image}}}); (msg == "") != tc.allowed {
 				t.Errorf("allowed=%v (%s)", msg == "", msg)
 			}
 		})

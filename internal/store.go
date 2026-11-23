@@ -4,21 +4,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"slices"
+	"strings"
 
 	bolt "go.etcd.io/bbolt"
 )
 
-// record is everything Hedgehog knows about one source image, keyed by digest.
+// record is what Hedgehog knows about one image, keyed by digest.
 type record struct {
-	Source     string    `json:"source"`     // repo@sha256:..., used to pull the image
-	DBBuilt    string    `json:"dbBuilt"`    // vulnerability DB the findings came from
-	Findings   []finding `json:"findings"`   // actionable only; empty = clean
-	Patched    string    `json:"patched"`    // patched repo@sha256:...; set = active rewrite
-	PatchedFor []string  `json:"patchedFor"` // vuln IDs the current patch addresses
-	Error      string    `json:"error"`      // last patch failure; cleared on success and on each new DB
+	Source     string    `json:"source"` // repo@sha256:...
+	DBBuilt    string    `json:"dbBuilt"`
+	Findings   []finding `json:"findings"` // actionable only
+	Patched    string    `json:"patched"`  // repo@sha256:... Pods are rewritten to
+	PatchedFor []string  `json:"patchedFor"`
+	PatchError string    `json:"patchError"` // cleared on success and on each new DB
 }
 
-// needsPatch reports whether some actionable finding isn't covered by the current patch.
+func (r record) patchedDigest() string {
+	_, d, _ := strings.Cut(r.Patched, "@")
+	return d
+}
+
 func (r record) needsPatch() bool {
 	for _, f := range r.Findings {
 		if r.Patched == "" || !slices.Contains(r.PatchedFor, f.VulnID) {
@@ -28,7 +33,7 @@ func (r record) needsPatch() bool {
 	return false
 }
 
-// store is a single bbolt bucket of JSON records. bbolt locks the file, which enforces the single replica.
+// store is a single bbolt bucket of JSON records.
 type store struct{ db *bolt.DB }
 
 var bucket = []byte("images")
@@ -58,7 +63,6 @@ func (s *store) all() map[string]record {
 	return recs
 }
 
-// update applies fn to the digest's record (zero if absent) and persists it in one transaction.
 func (s *store) update(digest string, fn func(*record)) (record, error) {
 	var r record
 	err := s.db.Update(func(tx *bolt.Tx) error {

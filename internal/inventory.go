@@ -19,18 +19,16 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 )
 
-// inventory tracks which image digests run where, from the manager's Pod informer. It's rebuilt from the cluster on
-// every start and never persisted. Every change signals changed, the reconcile loop's trigger.
+// inventory tracks which images run where, from the Pod informer. It lives in memory only.
 type inventory struct {
-	exclude map[string]bool // EXCLUDE_NAMESPACES: never tracked
-	cache   cache.Cache     // owner lookups read ReplicaSets from it
+	exclude map[string]bool
+	cache   cache.Cache
 	changed chan<- struct{}
 
 	mu   sync.RWMutex
 	pods map[types.UID]podInfo
 }
 
-// watchInventory registers the inventory on the cache's Pod informer and waits for the initial sync.
 func watchInventory(ctx context.Context, c cache.Cache, exclude map[string]bool, changed chan<- struct{}) (*inventory, error) {
 	inv := &inventory{exclude: exclude, cache: c, changed: changed, pods: map[types.UID]podInfo{}}
 	inf, err := c.GetInformer(ctx, &corev1.Pod{})
@@ -62,12 +60,13 @@ type workload struct {
 
 func (w workload) String() string { return fmt.Sprintf("%s %s/%s", w.Kind, w.Namespace, w.Name) }
 
-// container is one running container. For a rewritten container, Source* describe the original image.
+// container is one running container. The Source fields describe the image before any rewrite.
 type container struct {
-	Digest       string // digest actually running
-	SourceRef    string // normalised image ref from the pod spec (before any rewrite)
-	SourceDigest string
-	SourceImage  string // repo@digest of the original image
+	RunningDigest string
+	RunningImage  string // repo@digest
+	SourceRef     string // normalised, as written in the pod spec
+	SourceDigest  string
+	SourceImage   string // repo@digest
 }
 
 type podInfo struct {
@@ -76,13 +75,13 @@ type podInfo struct {
 	containers []container
 }
 
-// sourceImage is the value type of sourceAnnotation (container name → original image), set on rewritten Pods.
+// sourceImage is a value of sourceAnnotation, which maps container names to their original images.
 type sourceImage struct {
 	Ref    string `json:"ref"`
 	Digest string `json:"digest"`
 }
 
-// usage summarises one source digest in use (including digests whose Pods were all rewritten).
+// usage is one source digest in use, whether its Pods were rewritten or not.
 type usage struct {
 	Image string // repo@digest
 	Users []workload
@@ -97,7 +96,6 @@ func (inv *inventory) upsert(ctx context.Context, o any) {
 		inv.remove(o)
 		return
 	}
-	// The top-level workload: Pod → ReplicaSet → Deployment/Rollout.
 	owner := workload{Kind: "Pod", Namespace: p.Namespace, Name: p.Name}
 	if ref := metav1.GetControllerOf(p); ref != nil {
 		owner.Kind, owner.Name = ref.Kind, ref.Name
@@ -117,8 +115,7 @@ func (inv *inventory) upsert(ctx context.Context, o any) {
 	_ = json.Unmarshal([]byte(p.Annotations[sourceAnnotation]), &sources)
 
 	for _, st := range append(p.Status.InitContainerStatuses, p.Status.ContainerStatuses...) {
-		// imageID is "repo@sha256:...", sometimes with a "docker-pullable://" prefix.
-		_, id, _ := strings.Cut(st.ImageID, "://")
+		_, id, _ := strings.Cut(st.ImageID, "://") // drops a "docker-pullable://" prefix
 		if id == "" {
 			id = st.ImageID
 		}
@@ -126,7 +123,7 @@ func (inv *inventory) upsert(ctx context.Context, o any) {
 		if err != nil {
 			continue
 		}
-		ctr := container{Digest: running.DigestStr(), SourceDigest: running.DigestStr(), SourceImage: running.Name()}
+		ctr := container{RunningDigest: running.DigestStr(), RunningImage: running.Name(), SourceDigest: running.DigestStr(), SourceImage: running.Name()}
 		ref := specImage[st.Name]
 		if src, ok := sources[st.Name]; ok {
 			ref, ctr.SourceDigest = src.Ref, src.Digest
@@ -157,7 +154,6 @@ func (inv *inventory) remove(o any) {
 	}
 }
 
-// usages returns every source digest in use.
 func (inv *inventory) usages() map[string]usage {
 	inv.mu.RLock()
 	defer inv.mu.RUnlock()
@@ -177,8 +173,8 @@ func (inv *inventory) usages() map[string]usage {
 	return out
 }
 
-// tags maps normalised tag refs (not digest refs) to the source digest they ran as.
-func (inv *inventory) tags() map[string]string {
+// tagDigests maps normalised tag refs to the source digest they're running as.
+func (inv *inventory) tagDigests() map[string]string {
 	inv.mu.RLock()
 	defer inv.mu.RUnlock()
 	out := map[string]string{}
@@ -192,15 +188,15 @@ func (inv *inventory) tags() map[string]string {
 	return out
 }
 
-// outdated returns the workloads with Pods running source, or an earlier patch of it, instead of its current patch,
-// each with the creation time of its newest such Pod.
-func (inv *inventory) outdated(source, current string) map[workload]time.Time {
+// outdated returns the workloads with Pods running source (or an older patch of it) instead of patched, each with
+// its newest such Pod's creation time.
+func (inv *inventory) outdated(source, patched string) map[workload]time.Time {
 	inv.mu.RLock()
 	defer inv.mu.RUnlock()
 	out := map[workload]time.Time{}
 	for _, p := range inv.pods {
 		for _, ctr := range p.containers {
-			if ctr.SourceDigest == source && ctr.Digest != current && p.created.After(out[p.owner]) {
+			if ctr.SourceDigest == source && ctr.RunningDigest != patched && p.created.After(out[p.owner]) {
 				out[p.owner] = p.created
 			}
 		}
@@ -208,20 +204,20 @@ func (inv *inventory) outdated(source, current string) map[workload]time.Time {
 	return out
 }
 
-// running returns every digest a container is running (sources and patches alike).
-func (inv *inventory) running() map[string]bool {
+// runningImages maps every running digest, source or patch, to its repo@digest.
+func (inv *inventory) runningImages() map[string]string {
 	inv.mu.RLock()
 	defer inv.mu.RUnlock()
-	out := map[string]bool{}
+	out := map[string]string{}
 	for _, p := range inv.pods {
 		for _, ctr := range p.containers {
-			out[ctr.Digest] = true
+			out[ctr.RunningDigest] = ctr.RunningImage
 		}
 	}
 	return out
 }
 
-// notify signals ch without blocking; ch has a buffer of one, so bursts collapse into one signal.
+// notify signals ch without blocking. ch has a buffer of one, so bursts collapse.
 func notify(ch chan<- struct{}) {
 	select {
 	case ch <- struct{}{}:

@@ -20,22 +20,21 @@ import (
 
 // Scan priorities, highest first.
 const (
-	prioInline  = iota // an admission request is waiting
-	prioNew            // never scanned
-	prioRematch        // new vulnerability DB
+	prioInline = iota
+	prioNew
+	prioRematch
 	numPrio
 )
 
 var prioNames = [numPrio]string{"inline", "new", "rematch"}
 
 type scanJob struct {
-	digest, image string // image is repo@digest
+	digest, image string
 	prio          int
 	waiters       []chan error
 }
 
-// scanQueue is a priority queue keyed by digest. Pushing a queued digest at a higher priority promotes it; pushing a
-// running digest waits for that run.
+// scanQueue is a priority queue keyed by digest. Pushing a queued digest promotes it; pushing a running one joins it.
 type scanQueue struct {
 	mu      sync.Mutex
 	cond    *sync.Cond
@@ -51,7 +50,6 @@ func newScanQueue(ctx context.Context) *scanQueue {
 	return q
 }
 
-// push enqueues a scan; the returned channel receives its result once.
 func (q *scanQueue) push(digest, image string, prio int) <-chan error {
 	ch := make(chan error, 1)
 	q.mu.Lock()
@@ -74,7 +72,6 @@ func (q *scanQueue) push(digest, image string, prio int) <-chan error {
 	return ch
 }
 
-// pop blocks until a job is available; it returns nil once ctx is done.
 func (q *scanQueue) pop(ctx context.Context) *scanJob {
 	q.mu.Lock()
 	defer q.mu.Unlock()
@@ -104,57 +101,55 @@ func (q *scanQueue) done(j *scanJob, err error) {
 	}
 }
 
-// scanner owns scanning: the priority queue, its workers, and the vulnerability DB they match against. A finished
-// scan or a new DB signals changed, the reconcile loop's trigger.
 type scanner struct {
-	store    *store
-	platform v1.Platform
-	changed  chan<- struct{}
-	queue    *scanQueue
-	dbBuilt  atomic.Value // string; "" until the first DB download
+	riskThreshold    float64
+	maxBackoff       time.Duration
+	dbUpdateInterval time.Duration
 
-	failMu sync.Mutex
-	failed map[string]backoff // digest → when its failed scan may be retried (memory only)
+	store     *store
+	platform  v1.Platform
+	changed   chan<- struct{}
+	queue     *scanQueue
+	currentDB atomic.Value // string, the DB's build time; "" until downloaded
+
+	backoffMu sync.Mutex
+	backoffs  map[string]backoff // by digest
 }
 
 type backoff struct {
-	n     int // consecutive failures
-	retry time.Time
+	failures int
+	until    time.Time
 }
 
-// run starts the DB updates and the scan workers.
 func (s *scanner) run(ctx context.Context, workers int) {
-	s.dbBuilt.Store("")
-	s.failed = map[string]backoff{}
+	s.currentDB.Store("")
+	s.backoffs = map[string]backoff{}
 	go s.updateDBs(ctx)
 	for range workers {
 		go s.worker(ctx)
 	}
 }
 
-func (s *scanner) built() string { return s.dbBuilt.Load().(string) }
+func (s *scanner) dbBuilt() string { return s.currentDB.Load().(string) }
 
-// request queues a background scan, unless the digest's last scan failed and its backoff hasn't passed: an image that
-// can't be pulled (private, or not built for Hedgehog's platform) would otherwise be retried on every reconcile.
-// Inline admission scans don't go through here.
+// request queues a scan unless the digest is backing off from a failure.
 func (s *scanner) request(digest, image string, prio int) {
-	s.failMu.Lock()
-	b, failed := s.failed[digest]
-	s.failMu.Unlock()
-	if failed && time.Now().Before(b.retry) {
+	s.backoffMu.Lock()
+	b := s.backoffs[digest]
+	s.backoffMu.Unlock()
+	if time.Now().Before(b.until) {
 		return
 	}
 	s.queue.push(digest, image, prio)
 }
 
-// updateDBs downloads the vulnerability DB (retrying until it works), then checks for a new one every 15 minutes.
-// A new DB triggers a re-match of every in-use image.
+// updateDBs checks for a new vulnerability DB every dbUpdateInterval.
 func (s *scanner) updateDBs(ctx context.Context) {
 	for ctx.Err() == nil {
-		_, err := execTool(ctx, nil, "grype", "db", "update", "-q")
+		_, err := runTool(ctx, nil, "grype", "db", "update", "-q")
 		var out []byte
 		if err == nil {
-			out, err = execTool(ctx, nil, "grype", "db", "status", "-o", "json")
+			out, err = runTool(ctx, nil, "grype", "db", "status", "-o", "json")
 		}
 		var st struct {
 			Built string `json:"built"`
@@ -171,80 +166,77 @@ func (s *scanner) updateDBs(ctx context.Context) {
 			sleep(ctx, 30*time.Second)
 			continue
 		}
-		if st.Built != s.built() {
+		if st.Built != s.dbBuilt() {
 			slog.Info("vulnerability DB", "built", st.Built)
-			s.dbBuilt.Store(st.Built)
+			s.currentDB.Store(st.Built)
 			notify(s.changed)
 		}
-		sleep(ctx, 15*time.Minute)
+		sleep(ctx, s.dbUpdateInterval)
 	}
 }
 
 func (s *scanner) worker(ctx context.Context) {
 	for j := s.queue.pop(ctx); j != nil; j = s.queue.pop(ctx) {
 		start := time.Now()
-		sctx, cancel := context.WithTimeout(ctx, 10*time.Minute)
+		sctx, cancel := context.WithTimeout(ctx, scanTimeout)
 		err := s.scan(sctx, j)
 		cancel()
 		s.queue.done(j, err)
 		result := "ok"
-		s.failMu.Lock()
+		s.backoffMu.Lock()
 		if err != nil {
-			// Back off 1, 2, 4, … minutes, at most an hour, and reconcile when it's over.
 			result = "error"
-			b := s.failed[j.digest]
-			b.n++
-			delay := min(time.Minute<<min(b.n-1, 6), time.Hour)
-			b.retry = time.Now().Add(delay)
-			s.failed[j.digest] = b
+			b := s.backoffs[j.digest]
+			b.failures++
+			delay := min(time.Minute<<min(b.failures-1, 16), s.maxBackoff)
+			b.until = time.Now().Add(delay)
+			s.backoffs[j.digest] = b
 			time.AfterFunc(delay, func() { notify(s.changed) })
 			slog.Error("scan failed", "image", j.image, "err", err, "retryIn", delay)
 		} else {
-			delete(s.failed, j.digest)
+			delete(s.backoffs, j.digest)
 		}
-		s.failMu.Unlock()
+		s.backoffMu.Unlock()
 		scanSeconds.WithLabelValues(prioNames[j.prio], result).Observe(time.Since(start).Seconds())
 		notify(s.changed)
 	}
 }
 
-// scan makes (or reuses) the digest's SBOM, matches it against the current DB, and stores the actionable findings.
-// Patching is the reconcile loop's decision: it only patches images in use.
+// scan matches the digest's SBOM, made once, against the current DB.
 func (s *scanner) scan(ctx context.Context, j *scanJob) error {
-	built := s.built()
-	if built == "" {
+	dbBuilt := s.dbBuilt()
+	if dbBuilt == "" {
 		return errors.New("vulnerability DB not ready")
 	}
-	sbomPath := sbomPath(j.digest)
-	if _, err := os.Stat(sbomPath); err != nil {
-		if err := sbom(ctx, j.image, s.platform.OS+"/"+s.platform.Architecture, "", sbomPath+".tmp"); err != nil {
+	path := sbomPath(j.digest)
+	if _, err := os.Stat(path); err != nil {
+		if err := generateSBOM(ctx, j.image, s.platform.OS+"/"+s.platform.Architecture, path+".tmp"); err != nil {
 			return err
 		}
-		if err := os.Rename(sbomPath+".tmp", sbomPath); err != nil {
+		if err := os.Rename(path+".tmp", path); err != nil {
 			return err
 		}
 	}
-	doc, err := match(ctx, sbomPath)
+	doc, err := matchSBOM(ctx, path)
 	if err != nil {
 		return err
 	}
-	fs := actionable(doc)
+	findings := actionable(doc, s.riskThreshold)
 	if _, err := s.store.update(j.digest, func(r *record) {
-		if r.DBBuilt != built {
-			r.Error = "" // a failed patch is retried once per new DB
+		if r.DBBuilt != dbBuilt {
+			r.PatchError = "" // retry failed patches once per DB
 		}
-		r.Source, r.DBBuilt, r.Findings = j.image, built, fs
+		r.Source, r.DBBuilt, r.Findings = j.image, dbBuilt, findings
 	}); err != nil {
 		return err
 	}
-	if len(fs) > 0 {
-		slog.Info("actionable findings", "image", j.image, "ids", vulnIDs(fs))
+	if len(findings) > 0 {
+		slog.Info("actionable findings", "image", j.image, "ids", vulnIDs(findings))
 	}
 	return nil
 }
 
-// inlineScan is the admission path for unknown images in active mode: resolve the tag, scan at top priority, and
-// give up when the admission budget (ctx) runs out.
+// inlineScan resolves image and scans it at top priority, until ctx is done.
 func (s *scanner) inlineScan(ctx context.Context, image string) (record, error) {
 	ref, err := name.ParseReference(image)
 	if err != nil {
@@ -255,7 +247,7 @@ func (s *scanner) inlineScan(ctx context.Context, image string) (record, error) 
 		return record{}, fmt.Errorf("resolve: %w", err)
 	}
 	digest := desc.Digest.String()
-	if rec, ok := s.store.get(digest); ok && rec.DBBuilt == s.built() {
+	if rec, ok := s.store.get(digest); ok && rec.DBBuilt == s.dbBuilt() {
 		return rec, nil
 	}
 	select {

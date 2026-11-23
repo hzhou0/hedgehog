@@ -37,20 +37,20 @@ func TestCollectReferenceCounting(t *testing.T) {
 	}
 	// One Pod, rewritten: it runs the patch, and its source is src.
 	inv := &inventory{pods: map[types.UID]podInfo{"p": {owner: workload{"Deployment", "app", "web"},
-		containers: []container{{Digest: patched, SourceDigest: src, SourceImage: "docker.io/library/node@" + src}}}}}
-	c := &controller{store: st, inv: inv, unrefSince: map[string]time.Time{
-		stale: time.Now().Add(-gcGrace - time.Minute),
+		containers: []container{{RunningDigest: patched, SourceDigest: src, SourceImage: "docker.io/library/node@" + src}}}}}
+	c := &controller{keepUnreferenced: time.Hour, store: st, inv: inv, unreferencedSince: map[string]time.Time{
+		stale: time.Now().Add(-time.Hour - time.Minute),
 		fresh: time.Now().Add(-time.Minute),
 	}}
 
-	c.collect(inv.usages())
+	c.collectGarbage(inv.usages(), inv.runningImages())
 
 	for d, want := range map[string]bool{src: true, patched: true, stale: false, fresh: true} {
 		if _, ok := st.get(d); ok != want {
 			t.Errorf("record %s kept = %v, want %v", d, ok, want)
 		}
 	}
-	if _, ok := c.unrefSince[src]; ok {
+	if _, ok := c.unreferencedSince[src]; ok {
 		t.Error("a referenced image is counted as unreferenced")
 	}
 }

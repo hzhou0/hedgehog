@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
+	"maps"
 	"net/http"
 	"os"
 	"slices"
@@ -24,19 +25,21 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/metrics"
 )
 
-// controller is the reconcile loop: it turns inventory, scan, DB and patch changes into scan, patch and restart work,
-// and keeps the admission snapshot current. Each component owns its own state; the controller only holds references.
+// controller turns changes into scan, patch and restart work. The components own their state.
 type controller struct {
-	cs       kubernetes.Interface
-	cache    cache.Cache // workloads, for their last restart
+	backgroundScanInterval time.Duration
+	keepUnreferenced       time.Duration
+
+	client   kubernetes.Interface
+	cache    cache.Cache
 	store    *store
 	inv      *inventory
 	scanner  *scanner
 	patcher  *patcher
 	webhooks *webhooks
-	changed  <-chan struct{} // signalled by the inventory, the scanner and the patcher
+	changed  <-chan struct{}
 
-	unrefSince map[string]time.Time // digest → since when nothing references it (memory only; reconcile goroutine)
+	unreferencedSince map[string]time.Time // by digest
 }
 
 var (
@@ -54,9 +57,9 @@ func init() {
 	metrics.Registry.MustRegister(activeGauge, rewritesGauge, actionableGauge, patchTotal, restartTotal, scanSeconds)
 }
 
-// loop reconciles on every change, and hourly so garbage is collected even when nothing changes.
+// loop reconciles on every change, and every backgroundScanInterval for what no event signals (garbage collection, retries).
 func (c *controller) loop(ctx context.Context) {
-	tick := time.NewTicker(time.Hour)
+	tick := time.NewTicker(c.backgroundScanInterval)
 	defer tick.Stop()
 	for {
 		select {
@@ -71,58 +74,70 @@ func (c *controller) loop(ctx context.Context) {
 	}
 }
 
-// reconcile queues scans for in-use digests with missing or stale results, queues patches for in-use digests that
-// need one, rolls out and checks live patches, and refreshes the admission snapshot. Only images in use are patched:
-// patches only rewrite Pods of running workloads.
+// reconcile scans the running images and the sources in use, patches and rolls out the sources, and refreshes
+// admission.
 func (c *controller) reconcile(ctx context.Context) {
-	built := c.scanner.built()
+	dbBuilt := c.scanner.dbBuilt()
 	defer c.webhooks.refresh()
 	usages := c.inv.usages()
-	defer c.collect(usages)
+	running := c.inv.runningImages()
+	defer c.collectGarbage(usages, running)
+
+	toScan := maps.Clone(running)
 	for digest, u := range usages {
+		toScan[digest] = u.Image
+	}
+	for digest, image := range toScan {
 		rec, ok := c.store.get(digest)
-		if ok && rec.Patched != "" {
-			rec = c.checkPatch(ctx, digest, rec, built)
-		}
 		switch {
-		case built == "":
+		case dbBuilt == "":
 		case !ok:
-			c.scanner.request(digest, u.Image, prioNew)
-		case rec.DBBuilt != built:
-			c.scanner.request(digest, u.Image, prioRematch)
-		case rec.needsPatch() && rec.Error == "":
+			c.scanner.request(digest, image, prioNew)
+		case rec.DBBuilt != dbBuilt:
+			c.scanner.request(digest, image, prioRematch)
+		}
+	}
+	for digest := range usages {
+		rec, ok := c.store.get(digest)
+		if !ok {
+			continue
+		}
+		if rec.Patched != "" {
+			rec = c.rolloutPatch(ctx, digest, rec)
+		}
+		if rec.DBBuilt == dbBuilt && rec.needsPatch() && rec.PatchError == "" {
 			c.patcher.enqueue(digest)
 		}
 	}
 }
 
-// collect deletes Hedgehog's own state that nothing references any more, by reference count. An image's references
-// are the running Pods using it (as their source or as their running digest) and, for a patched image, its source's
-// record while that source is referenced. After gcGrace with no references, its record and SBOM are deleted. Registries
-// are never touched: pushed images are the registry owner's to clean up. The grace period covers workloads that only
-// run sometimes (CronJobs, scaled to zero), which would otherwise lose their patch between runs.
-func (c *controller) collect(usages map[string]usage) {
-	refs := c.inv.running()
+// collectGarbage deletes the records and SBOMs of images unreferenced for keepUnreferenced. Pods reference the
+// images they run, as source or as patch, and a referenced source references its patch. Registries are never touched.
+func (c *controller) collectGarbage(usages map[string]usage, running map[string]string) {
+	refs := map[string]bool{}
+	for d := range running {
+		refs[d] = true
+	}
 	for d := range usages {
 		refs[d] = true
 	}
 	recs := c.store.all()
 	for d, r := range recs {
-		if _, pd, ok := strings.Cut(r.Patched, "@"); ok && refs[d] {
-			refs[pd] = true
+		if r.Patched != "" && refs[d] {
+			refs[r.patchedDigest()] = true
 		}
 	}
 	now := time.Now()
 	for d, r := range recs {
 		if refs[d] {
-			delete(c.unrefSince, d)
+			delete(c.unreferencedSince, d)
 			continue
 		}
-		since, seen := c.unrefSince[d]
+		since, seen := c.unreferencedSince[d]
 		if !seen {
-			c.unrefSince[d] = now
+			c.unreferencedSince[d] = now
 		}
-		if !seen || now.Sub(since) < gcGrace {
+		if !seen || now.Sub(since) < c.keepUnreferenced {
 			continue
 		}
 		if err := c.store.delete(d); err != nil {
@@ -130,53 +145,39 @@ func (c *controller) collect(usages map[string]usage) {
 			continue
 		}
 		_ = os.Remove(sbomPath(d))
-		delete(c.unrefSince, d)
+		delete(c.unreferencedSince, d)
 		slog.Info("garbage collected", "image", r.Source)
 	}
 }
 
-// checkPatch rolls out a live patch and scans the patched image like any other. If the patched image still has a
-// finding the patch was for, the patch didn't work: the image becomes unpatchable (no rewrite, denied, retried once
-// per new DB). Findings the patch wasn't for are new: the source has them too, and gets re-patched.
-func (c *controller) checkPatch(ctx context.Context, digest string, rec record, built string) record {
-	_, current, _ := strings.Cut(rec.Patched, "@")
-	pr, scanned := c.store.get(current)
-	switch {
-	case built == "":
-	case !scanned:
-		c.scanner.request(current, rec.Patched, prioNew)
-	case pr.DBBuilt != built:
-		c.scanner.request(current, rec.Patched, prioRematch)
-	default:
-		var left []string
+// rolloutPatch restarts workloads onto the patch. Once the running patch has been scanned, a patch that still has a
+// finding it was for is dropped, leaving the image unpatchable until the next DB.
+func (c *controller) rolloutPatch(ctx context.Context, digest string, rec record) record {
+	patched := rec.patchedDigest()
+	if pr, scanned := c.store.get(patched); scanned {
+		var unfixed []string
 		for _, f := range pr.Findings {
 			if slices.Contains(rec.PatchedFor, f.VulnID) {
-				left = append(left, f.VulnID)
+				unfixed = append(unfixed, f.VulnID)
 			}
 		}
-		if len(left) > 0 {
-			err := fmt.Errorf("patched image %s still has %s", rec.Patched, strings.Join(left, ", "))
+		if len(unfixed) > 0 {
+			err := fmt.Errorf("patched image %s still has %s", rec.Patched, strings.Join(unfixed, ", "))
 			slog.Error("patch ineffective; image unpatchable", "image", rec.Source, "err", err)
 			patchTotal.WithLabelValues("ineffective").Inc()
-			rec, _ = c.store.update(digest, func(r *record) { r.Patched, r.PatchedFor, r.Error = "", nil, err.Error() })
+			rec, _ = c.store.update(digest, func(r *record) { r.Patched, r.PatchedFor, r.PatchError = "", nil, err.Error() })
 			return rec
 		}
 	}
-	c.restart(ctx, digest, rec.Patched)
+	c.restartOutdated(ctx, digest, patched)
 	return rec
 }
 
-// restart does what `kubectl rollout restart` does to each workload whose Pods run digest, or an earlier patch of it,
-// instead of its current patch (patched, repo@sha256:...): set the restart annotation (server-side apply, Hedgehog's
-// own field manager, nothing else), and the workload's controller rolls out its own way. It restarts only when such a
-// Pod was created after the workload's last restart: then it hasn't been restarted since this patch, or the webhook
-// missed that Pod (Hedgehog was down). Pods older than the last restart belong to a rollout in progress or stalled,
-// which a new restart wouldn't help. Kinds kubectl can't restart are left alone; their Pods are rewritten whenever
-// they're recreated.
-func (c *controller) restart(ctx context.Context, digest, patched string) {
-	_, current, _ := strings.Cut(patched, "@")
-	apps := c.cs.AppsV1()
-	for w, newest := range c.inv.outdated(digest, current) {
+// restartOutdated does `kubectl rollout restart` on each workload with a Pod not running patched that was created
+// after the workload's last restart. Older Pods belong to a rollout already under way.
+func (c *controller) restartOutdated(ctx context.Context, digest, patched string) {
+	apps := c.client.AppsV1()
+	for w, newest := range c.inv.outdated(digest, patched) {
 		key := types.NamespacedName{Namespace: w.Namespace, Name: w.Name}
 		var tmpl corev1.PodTemplateSpec
 		var err error
@@ -200,19 +201,19 @@ func (c *controller) restart(ctx context.Context, digest, patched string) {
 			slog.Error("read workload", "workload", w.String(), "err", err)
 			continue
 		}
-		last, _ := time.Parse(time.RFC3339, tmpl.Annotations[restartAnnotation]) // zero if never restarted
-		if !newest.After(last) {
+		lastRestart, _ := time.Parse(time.RFC3339, tmpl.Annotations[restartAnnotation])
+		if !newest.After(lastRestart) {
 			continue
 		}
-		now := coreac.PodTemplateSpec().WithAnnotations(map[string]string{restartAnnotation: time.Now().UTC().Format(time.RFC3339)})
+		restarted := coreac.PodTemplateSpec().WithAnnotations(map[string]string{restartAnnotation: time.Now().UTC().Format(time.RFC3339)})
 		opts := metav1.ApplyOptions{FieldManager: ownName, Force: true}
 		switch w.Kind {
 		case "Deployment":
-			_, err = apps.Deployments(w.Namespace).Apply(ctx, appsac.Deployment(w.Name, w.Namespace).WithSpec(appsac.DeploymentSpec().WithTemplate(now)), opts)
+			_, err = apps.Deployments(w.Namespace).Apply(ctx, appsac.Deployment(w.Name, w.Namespace).WithSpec(appsac.DeploymentSpec().WithTemplate(restarted)), opts)
 		case "StatefulSet":
-			_, err = apps.StatefulSets(w.Namespace).Apply(ctx, appsac.StatefulSet(w.Name, w.Namespace).WithSpec(appsac.StatefulSetSpec().WithTemplate(now)), opts)
+			_, err = apps.StatefulSets(w.Namespace).Apply(ctx, appsac.StatefulSet(w.Name, w.Namespace).WithSpec(appsac.StatefulSetSpec().WithTemplate(restarted)), opts)
 		case "DaemonSet":
-			_, err = apps.DaemonSets(w.Namespace).Apply(ctx, appsac.DaemonSet(w.Name, w.Namespace).WithSpec(appsac.DaemonSetSpec().WithTemplate(now)), opts)
+			_, err = apps.DaemonSets(w.Namespace).Apply(ctx, appsac.DaemonSet(w.Name, w.Namespace).WithSpec(appsac.DaemonSetSpec().WithTemplate(restarted)), opts)
 		}
 		if err != nil {
 			restartTotal.WithLabelValues("failed").Inc()
@@ -224,20 +225,19 @@ func (c *controller) restart(ctx context.Context, digest, patched string) {
 	}
 }
 
-// serveStatus reports images with findings or patches, who uses them, and which workloads still run the vulnerable
-// digest itself: a rollout in progress or stalled, or a kind Hedgehog doesn't restart (read-only, on the metrics port).
+// serveStatus reports images with findings or patches, their users, and the workloads not yet on the patch.
 func (c *controller) serveStatus(w http.ResponseWriter, _ *http.Request) {
 	type image struct {
 		Digest string `json:"digest"`
 		record
 		Users    []workload `json:"users"`
-		Outdated []workload `json:"outdated,omitempty"` // Pods not yet on the current patch
+		Outdated []workload `json:"outdated,omitempty"`
 	}
 	out := struct {
 		DBBuilt string  `json:"dbBuilt"`
 		Active  bool    `json:"active"`
 		Images  []image `json:"images"`
-	}{DBBuilt: c.scanner.built()}
+	}{DBBuilt: c.scanner.dbBuilt()}
 	if snap := c.webhooks.snap.Load(); snap != nil {
 		out.Active = snap.Active
 	}
@@ -246,8 +246,7 @@ func (c *controller) serveStatus(w http.ResponseWriter, _ *http.Request) {
 		if len(r.Findings) > 0 || r.Patched != "" {
 			img := image{Digest: d, record: r, Users: usages[d].Users}
 			if r.Patched != "" {
-				_, current, _ := strings.Cut(r.Patched, "@")
-				for w := range c.inv.outdated(d, current) {
+				for w := range c.inv.outdated(d, r.patchedDigest()) {
 					img.Outdated = append(img.Outdated, w)
 				}
 			}

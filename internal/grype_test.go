@@ -59,7 +59,7 @@ func TestRiskFormulaUnchanged(t *testing.T) {
 }
 
 func TestActionableNode16(t *testing.T) {
-	fs := actionable(loadNode16(t))
+	fs := actionable(loadNode16(t), 90)
 	if len(fs) != 1 {
 		t.Fatalf("want exactly 1 actionable finding, got %+v", fs)
 	}
@@ -82,7 +82,7 @@ func TestRiskThresholdIsStrict(t *testing.T) {
 		m.Artifact.Version = "1"
 	}
 	doc.Matches[1].Vulnerability.Fix.State = "not-fixed"
-	if fs := actionable(doc); len(fs) != 1 || fs[0].VulnID != "C" {
+	if fs := actionable(doc, 90); len(fs) != 1 || fs[0].VulnID != "C" {
 		t.Fatalf("got %+v", fs)
 	}
 }

@@ -51,7 +51,7 @@ func TestCopyPatchKeepsWhiteouts(t *testing.T) {
 	})
 	var layer bytes.Buffer
 	tw := tar.NewWriter(&layer)
-	if err := copyPatch(ctxTar, tw); err != nil {
+	if err := copyCopaPatch(ctxTar, tw); err != nil {
 		t.Fatal(err)
 	}
 	_ = tw.Close()
@@ -122,8 +122,8 @@ func TestNodeOwns(t *testing.T) {
 		{finding{Type: "npm", Path: "/app/node_modules/tar/package.json"}, false},
 		{finding{Type: "apk", Package: "libssl3"}, false},
 	} {
-		if got := isNode(tc.f); got != tc.want {
-			t.Errorf("isNode(%+v) = %v", tc.f, got)
+		if got := fixedByNodeReplacement(tc.f); got != tc.want {
+			t.Errorf("fixedByNodeReplacement(%+v) = %v", tc.f, got)
 		}
 	}
 }

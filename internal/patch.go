@@ -22,34 +22,32 @@ import (
 	"github.com/google/go-containerregistry/pkg/v1/tarball"
 )
 
-// A patched image is the source image plus one layer holding copa's package-manager patch and, if needed, a
-// replacement node runtime (nodejs.go), pushed to <dest>/<source repo>:sha256-<source hex>.
-
-// patcher owns patching: its queue and the single worker that builds a patch and makes the rewrite live. One build at
-// a time: builds are heavy and share the buildkitd sidecar. Restarts are the reconcile loop's (controller.go).
+// patcher builds one patch at a time: builds are heavy and share the buildkitd sidecar.
 type patcher struct {
-	dest     string              // repository prefix for patched images
-	auth     authn.Authenticator // push credentials for the destination (anonymous if none)
-	platform v1.Platform
-	// languageUpdates turns on copa's experimental language package updates (npm, pip, …) (LANGUAGE_UPDATES).
-	// Off, language findings are unpatchable.
-	languageUpdates bool
-	store           *store
-	webhooks        *webhooks       // refreshed so the rewrite is live before the restarts
-	changed         chan<- struct{} // a new patch triggers a reconcile, which restarts its workloads
+	dest              string // repository prefix
+	pushAuth          authn.Authenticator
+	platform          v1.Platform
+	patchDependencies bool
+	buildTimeout      time.Duration
+	buildkitAddr      string
+	nodeDistURL       string
+	nodeMuslDistURL   string
+	store             *store
+	webhooks          *webhooks
+	changed           chan<- struct{}
 
-	queue   chan string
-	pending sync.Map // digest → struct{}: queued or building
+	queue            chan string
+	queuedOrBuilding sync.Map // digest → struct{}
 }
 
 func (p *patcher) enqueue(digest string) {
-	if _, loaded := p.pending.LoadOrStore(digest, struct{}{}); loaded {
+	if _, loaded := p.queuedOrBuilding.LoadOrStore(digest, struct{}{}); loaded {
 		return
 	}
 	select {
 	case p.queue <- digest:
 	default:
-		p.pending.Delete(digest) // full; the next reconcile retries
+		p.queuedOrBuilding.Delete(digest) // full; the next reconcile retries
 	}
 }
 
@@ -59,48 +57,47 @@ func (p *patcher) run(ctx context.Context) {
 		case <-ctx.Done():
 			return
 		case d := <-p.queue:
-			// Still pending while it builds, so reconciles during the build don't queue it again.
-			pctx, cancel := context.WithTimeout(ctx, 45*time.Minute)
-			p.mitigate(pctx, d)
+			pctx, cancel := context.WithTimeout(ctx, p.buildTimeout)
+			p.patchImage(pctx, d)
 			cancel()
-			p.pending.Delete(d)
+			p.queuedOrBuilding.Delete(d)
 		}
 	}
 }
 
-func (p *patcher) mitigate(ctx context.Context, digest string) {
+func (p *patcher) patchImage(ctx context.Context, digest string) {
 	rec, ok := p.store.get(digest)
 	if !ok || !rec.needsPatch() {
 		return
 	}
 	log := slog.With("image", rec.Source)
 	log.Info("patching", "ids", vulnIDs(rec.Findings))
-	ref, err := p.patch(ctx, digest, rec)
+	ref, err := p.build(ctx, digest, rec)
 	if err != nil {
 		log.Error("patch failed", "err", err)
 		patchTotal.WithLabelValues("failed").Inc()
-		_, _ = p.store.update(digest, func(r *record) { r.Error = err.Error() })
+		_, _ = p.store.update(digest, func(r *record) { r.PatchError = err.Error() })
 		return
 	}
-	if _, err := p.store.update(digest, func(r *record) { r.Patched, r.PatchedFor, r.Error = ref, vulnIDs(rec.Findings), "" }); err != nil {
+	if _, err := p.store.update(digest, func(r *record) { r.Patched, r.PatchedFor, r.PatchError = ref, vulnIDs(rec.Findings), "" }); err != nil {
 		log.Error("store patch", "err", err)
 		return
 	}
 	patchTotal.WithLabelValues("ok").Inc()
 	log.Info("patched", "patched", ref)
-	p.webhooks.refresh() // new Pods are rewritten from here on
-	notify(p.changed)    // the reconcile loop restarts the workloads still on the vulnerable image
+	p.webhooks.refresh() // rewrite before restarting
+	notify(p.changed)
 }
 
-// patch builds the patched image of digest and pushes it, returning it as repo@sha256:... It isn't verified here:
-// the patched image is rolled out and then scanned like any other image (controller.reconcile).
-func (p *patcher) patch(ctx context.Context, digest string, rec record) (string, error) {
+// build pushes the source plus one layer of copa's patch and the node replacement to
+// <dest>/<source repo>:sha256-<source hex>, and returns it as repo@sha256:...
+func (p *patcher) build(ctx context.Context, digest string, rec record) (string, error) {
 	work, err := os.MkdirTemp(filepath.Join(dataDir, "work"), "patch-")
 	if err != nil {
 		return "", err
 	}
 	defer os.RemoveAll(work)
-	doc, err := match(ctx, sbomPath(digest))
+	doc, err := matchSBOM(ctx, sbomPath(digest))
 	if err != nil {
 		return "", err
 	}
@@ -114,23 +111,22 @@ func (p *patcher) patch(ctx context.Context, digest string, rec record) (string,
 		return "", err
 	}
 
-	// Plan everything before building anything, so unpatchable images fail fast. Node runtime findings are fixed by
-	// replacing the runtime; copa gets the rest.
-	var nodeFs, rest []finding
+	// Plan before building, so unpatchable images fail fast.
+	var nodeFindings, copaFindings []finding
 	for _, f := range rec.Findings {
-		if isNode(f) {
-			nodeFs = append(nodeFs, f)
+		if fixedByNodeReplacement(f) {
+			nodeFindings = append(nodeFindings, f)
 		} else {
-			rest = append(rest, f)
+			copaFindings = append(copaFindings, f)
 		}
 	}
-	var node *nodeSwap
-	if len(nodeFs) > 0 {
-		if node, err = planNode(ctx, doc, p.platform, nodeFs); err != nil {
+	var node *nodeReplacement
+	if len(nodeFindings) > 0 {
+		if node, err = planNodeReplacement(ctx, doc, p.platform, nodeFindings, p.nodeDistURL, p.nodeMuslDistURL); err != nil {
 			return "", err
 		}
 	}
-	report, library, skipped := copaReport(doc.Distro, p.platform, rest, p.languageUpdates)
+	report, hasDependencyUpdates, skipped := copaReport(doc.Distro, p.platform, copaFindings, p.patchDependencies)
 	if len(skipped) > 0 {
 		return "", fmt.Errorf("no way to patch %s", strings.Join(vulnIDs(skipped), ", "))
 	}
@@ -143,10 +139,8 @@ func (p *patcher) patch(ctx context.Context, digest string, rec record) (string,
 	defer f.Close()
 	tw := tar.NewWriter(f)
 	if report != nil {
-		// copa runs the package manager in BuildKit and outputs a build context: a Dockerfile plus the changed files
-		// under patch/. Hedgehog copies the patch/ entries into its layer instead of building that Dockerfile: copa
-		// writes the diff's whiteouts (.wh.*) as ordinary entries, which become layer whiteouts again once the prefix
-		// is stripped, whereas `COPY patch/ /` would lose those deletions.
+		// copa's output context holds the changed files under patch/, whiteouts included. They're copied into the
+		// layer directly: building copa's Dockerfile (`COPY patch/ /`) would lose the whiteouts.
 		reportPath, ctxTar := filepath.Join(work, "copa-report.json"), filepath.Join(work, "copa-context.tar")
 		b, err := json.Marshal(report)
 		if err != nil {
@@ -155,21 +149,21 @@ func (p *patcher) patch(ctx context.Context, digest string, rec record) (string,
 		if err := os.WriteFile(reportPath, b, 0o600); err != nil {
 			return "", err
 		}
-		args := []string{"generate", "--image", rec.Source, "--report", reportPath, "--scanner", "native", "--addr", buildkitAddr,
-			"--output-context", ctxTar, "--working-folder", work, "--timeout", "30m", "--progress", "plain"}
+		args := []string{"generate", "--image", rec.Source, "--report", reportPath, "--scanner", "native", "--addr", p.buildkitAddr,
+			"--output-context", ctxTar, "--working-folder", work, "--timeout", p.buildTimeout.String(), "--progress", "plain"}
 		var env []string
-		if library { // language packages are an experimental copa feature
+		if hasDependencyUpdates {
 			args = append(args, "--pkg-types", "os,library")
 			env = append(env, "COPA_EXPERIMENTAL=1")
 		}
-		if _, err := execTool(ctx, env, "copa", args...); err != nil {
+		if _, err := runTool(ctx, env, "copa", args...); err != nil {
 			return "", err
 		}
-		if err := copyPatch(ctxTar, tw); err != nil {
+		if err := copyCopaPatch(ctxTar, tw); err != nil {
 			return "", err
 		}
 	}
-	if node != nil { // after copa's entries, so the node runtime wins on any path both touch
+	if node != nil { // last, so it wins over copa
 		if err := node.writeLayer(ctx, work, tw); err != nil {
 			return "", fmt.Errorf("%s: %w", node, err)
 		}
@@ -182,7 +176,7 @@ func (p *patcher) patch(ctx context.Context, digest string, rec record) (string,
 		return "", err
 	}
 
-	base, err := remote.Image(src, remote.WithContext(ctx), remote.WithPlatform(p.platform)) // sources pull anonymously
+	base, err := remote.Image(src, remote.WithContext(ctx), remote.WithPlatform(p.platform))
 	if err != nil {
 		return "", fmt.Errorf("pull %s: %w", rec.Source, err)
 	}
@@ -205,7 +199,7 @@ func (p *patcher) patch(ctx context.Context, digest string, rec record) (string,
 	if img, err = mutate.Config(img, cfg); err != nil {
 		return "", err
 	}
-	if err := remote.Write(tag, img, remote.WithContext(ctx), remote.WithAuth(p.auth)); err != nil {
+	if err := remote.Write(tag, img, remote.WithContext(ctx), remote.WithAuth(p.pushAuth)); err != nil {
 		return "", fmt.Errorf("push %s: %w", tag, err)
 	}
 	d, err := img.Digest()
@@ -241,16 +235,13 @@ type copaPackage struct {
 	Class            string `json:"class"`
 }
 
-// copaLangTypes maps grype artifact types to copa's language package types (copacetic pkg/utils).
-var copaLangTypes = map[string]string{"python": "python-pkg", "npm": "node-pkg", "go-module": "gomod", "dotnet": "dotnet-core"}
+// copaDependencyTypes maps grype artifact types to copa's application dependency types (copacetic pkg/utils).
+var copaDependencyTypes = map[string]string{"python": "python-pkg", "npm": "node-pkg", "go-module": "gomod", "dotnet": "dotnet-core"}
 
-// copaReport turns findings into a copa manifest (nil if copa has nothing to do). Findings copa can't handle are
-// returned as skipped.
-// copaReport converts findings to copa's manifest. Language packages are included only with lang (copa's experimental
-// language updates, LANGUAGE_UPDATES); otherwise they're skipped, like anything copa can't patch.
-func copaReport(d distro, p v1.Platform, fs []finding, lang bool) (m *copaManifest, library bool, skipped []finding) {
+// copaReport returns copa's manifest for findings (nil if empty), and the findings copa can't patch.
+func copaReport(d distro, p v1.Platform, findings []finding, patchDependencies bool) (m *copaManifest, hasDependencyUpdates bool, skipped []finding) {
 	byPkg := map[string]copaPackage{}
-	for _, f := range fs {
+	for _, f := range findings {
 		pkg := copaPackage{Name: f.Package, InstalledVersion: f.Version, FixedVersion: f.Target, VulnerabilityID: f.VulnID}
 		switch {
 		case f.Target == "":
@@ -258,13 +249,13 @@ func copaReport(d distro, p v1.Platform, fs []finding, lang bool) (m *copaManife
 			continue
 		case f.Type == "apk" || f.Type == "deb" || f.Type == "rpm":
 			pkg.Type, pkg.Class = d.Name, "os-pkgs"
-		case lang && copaLangTypes[f.Type] != "":
-			pkg.Type, pkg.Class = copaLangTypes[f.Type], "lang-pkgs"
+		case patchDependencies && copaDependencyTypes[f.Type] != "":
+			pkg.Type, pkg.Class = copaDependencyTypes[f.Type], "lang-pkgs"
 		default:
 			skipped = append(skipped, f)
 			continue
 		}
-		// One entry per package: its highest target fixes all of its findings.
+		// One entry per package, at its highest target.
 		key := pkg.Class + "/" + f.Package + "@" + f.Version
 		if prev, ok := byPkg[key]; !ok || compareVersions(pkg.FixedVersion, prev.FixedVersion) > 0 {
 			byPkg[key] = pkg
@@ -281,13 +272,13 @@ func copaReport(d distro, p v1.Platform, fs []finding, lang bool) (m *copaManife
 			m.OSUpdates = append(m.OSUpdates, pkg)
 		} else {
 			m.LangUpdates = append(m.LangUpdates, pkg)
-			library = true
+			hasDependencyUpdates = true
 		}
 	}
-	return m, library, skipped
+	return m, hasDependencyUpdates, skipped
 }
 
-func copyPatch(contextTar string, tw *tar.Writer) error {
+func copyCopaPatch(contextTar string, tw *tar.Writer) error {
 	f, err := os.Open(contextTar)
 	if err != nil {
 		return err
