@@ -1,0 +1,30 @@
+# Single-node k3s for the e2e test (see the Tiltfile).
+#
+# The registry runs inside the cluster (e2e/registry.yaml) at a fixed ClusterIP, and everything in the cluster names
+# it by that address, 10.43.200.200:5000. A private IP needs no DNS, and go-containerregistry (Hedgehog, syft) uses
+# plain HTTP for private IPs. The mirror below tells the node's containerd the same. Tilt pushes from the host through
+# localhost:5000, mapped to the registry's NodePort.
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: hedgehog-e2e
+servers: 1
+image: rancher/k3s:v1.34.13-k3s1
+ports:
+  - port: 5000:30500
+    nodeFilters: [server:0]
+options:
+  k3s:
+    extraArgs:
+      # Fewer system images for Hedgehog to scan and restart.
+      - arg: --disable=traefik,servicelb,metrics-server
+        nodeFilters: [server:*]
+      # The default eviction threshold is 5% of the disk free, which a busy dev machine's large disk can be below
+      # all the time. An absolute threshold suits a throwaway cluster.
+      - arg: --kubelet-arg=eviction-hard=nodefs.available<1Gi,imagefs.available<1Gi
+        nodeFilters: [server:*]
+registries:
+  config: |
+    mirrors:
+      "10.43.200.200:5000":
+        endpoint: ["http://10.43.200.200:5000"]

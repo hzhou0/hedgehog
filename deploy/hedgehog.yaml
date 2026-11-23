@@ -1,0 +1,210 @@
+# Hedgehog install. The inputs, all environment variables on the StatefulSet below:
+#   DESTINATION           the repository prefix patched images are pushed to. Nodes must be able to pull from it
+#                         without a pull secret (public, or node-level registry credentials).
+#   DESTINATION_USERNAME, DESTINATION_PASSWORD
+#                         push credentials, taken from the optional "hedgehog-registry" Secret (keys username and
+#                         password); without it, pushes are anonymous:
+#                           kubectl -n hedgehog-system create secret generic hedgehog-registry \
+#                             --from-literal=username=... --from-literal=password=...
+#   SCAN_WORKERS          optional: concurrent scans (default 2)
+#   LANGUAGE_UPDATES      optional: copa's experimental language package updates (default false)
+#   EXCLUDE_NAMESPACES    optional: comma-separated namespaces Hedgehog leaves alone entirely (default none)
+# Source images are pulled anonymously: Hedgehog has no access to workloads' pull secrets.
+#
+# Argo CD users: add the global ignore rule from docs/design.md (§7.2) so restarts don't show as OutOfSync.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hedgehog-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: hedgehog
+  namespace: hedgehog-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: hedgehog
+rules:
+  - apiGroups: [""]
+    resources: [pods]
+    verbs: [get, list, watch]
+  - apiGroups: [apps]
+    resources: [replicasets]
+    verbs: [get, list, watch]
+  # The restart annotation: read from the cache (last restart), written with server-side apply.
+  - apiGroups: [apps]
+    resources: [deployments, statefulsets, daemonsets]
+    verbs: [get, list, watch, patch]
+  # cert-controller injects caBundle.
+  - apiGroups: [admissionregistration.k8s.io]
+    resources: [mutatingwebhookconfigurations, validatingwebhookconfigurations]
+    verbs: [get, list, watch, update]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: hedgehog
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: hedgehog}
+subjects: [{kind: ServiceAccount, name: hedgehog, namespace: hedgehog-system}]
+---
+# cert-controller keeps the webhook serving cert in a Secret in Hedgehog's namespace. Hedgehog itself reads no Secrets.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: hedgehog
+  namespace: hedgehog-system
+rules:
+  - apiGroups: [""]
+    resources: [secrets]
+    verbs: [get, list, watch, update]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: hedgehog
+  namespace: hedgehog-system
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: Role, name: hedgehog}
+subjects: [{kind: ServiceAccount, name: hedgehog, namespace: hedgehog-system}]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hedgehog-webhook
+  namespace: hedgehog-system
+spec:
+  selector: {app.kubernetes.io/name: hedgehog}
+  ports:
+    - {name: webhook, port: 443, targetPort: 8443}
+    - {name: http, port: 8080, targetPort: 8080} # /status, /metrics
+---
+# Filled and rotated by cert-controller (in-process); mounted at /certs.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hedgehog-webhook-tls
+  namespace: hedgehog-system
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hedgehog
+  namespace: hedgehog-system
+spec:
+  replicas: 1 # one writer: bbolt locks its file, and the PV is ReadWriteOnce
+  serviceName: hedgehog-webhook
+  selector:
+    matchLabels: {app.kubernetes.io/name: hedgehog}
+  template:
+    metadata:
+      labels: {app.kubernetes.io/name: hedgehog}
+    spec:
+      serviceAccountName: hedgehog
+      securityContext: {runAsNonRoot: true, runAsUser: 65532, fsGroup: 65532, seccompProfile: {type: RuntimeDefault}}
+      containers:
+        - name: hedgehog
+          image: hedgehog:dev # replace with your build
+          env:
+            - name: DESTINATION
+              value: registry.example.com/hedgehog
+            - name: DESTINATION_USERNAME
+              valueFrom: {secretKeyRef: {name: hedgehog-registry, key: username, optional: true}}
+            - name: DESTINATION_PASSWORD
+              valueFrom: {secretKeyRef: {name: hedgehog-registry, key: password, optional: true}}
+            # Concurrent scans (default 2). Each runs its own syft and grype: raise the memory limit with it.
+            - name: SCAN_WORKERS
+              value: "2"
+            # Patch language packages (npm, pip, …) too, with copa's experimental support (default false: those
+            # findings are unpatchable and stay denied).
+            - name: LANGUAGE_UPDATES
+              value: "false"
+            # Namespaces Hedgehog leaves alone entirely (not scanned, patched, restarted or gated). The webhooks have
+            # no namespaceSelector: this list is the only exclusion.
+            - name: EXCLUDE_NAMESPACES
+              value: kube-system,hedgehog-system
+            - name: POD_NAMESPACE
+              valueFrom: {fieldRef: {fieldPath: metadata.namespace}}
+            - {name: HOME, value: /tmp}
+            - {name: TMPDIR, value: /data/work} # syft unpacks image layers here: keep it on the PV, not node disk
+          ports:
+            - {name: webhook, containerPort: 8443}
+            - {name: http, containerPort: 8080}
+            - {name: probes, containerPort: 8081}
+          readinessProbe:
+            httpGet: {path: /readyz, port: probes}
+          livenessProbe:
+            httpGet: {path: /healthz, port: probes}
+          resources:
+            requests: {cpu: 500m, memory: 1Gi}
+            limits: {memory: 4Gi} # grype/syft on large images
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: [ALL]}}
+          volumeMounts:
+            - {name: data, mountPath: /data}
+            - {name: tmp, mountPath: /tmp}
+            - {name: certs, mountPath: /certs, readOnly: true}
+        # Rootless BuildKit for `copa generate`, as a sidecar: builds are native, so it must run on Hedgehog's
+        # architecture, and the same Pod guarantees that. It listens on loopback only, so nothing outside the Pod can
+        # reach it. Rootless needs user namespaces, hence the unconfined profiles (this container only); no
+        # privileged container.
+        - name: buildkitd
+          image: moby/buildkit:v0.34.1-rootless
+          args: [--addr, "tcp://127.0.0.1:1234", --oci-worker-no-process-sandbox]
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            seccompProfile: {type: Unconfined}
+            appArmorProfile: {type: Unconfined}
+          volumeMounts:
+            - {name: buildkit, mountPath: /home/user/.local/share/buildkit}
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: buildkit
+          emptyDir: {}
+        - name: certs
+          secret: {secretName: hedgehog-webhook-tls}
+  volumeClaimTemplates:
+    - metadata:
+        name: data # bbolt DB, SBOMs, grype DB (~1 GB), build scratch
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests: {storage: 20Gi}
+---
+# caBundle is injected by cert-controller. Both webhooks fail open (Ignore): Hedgehog never blocks the cluster while
+# it's down. Namespaces are excluded by EXCLUDE_NAMESPACES, in the handlers.
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: hedgehog
+webhooks:
+  - name: pods.hedgehog.io
+    clientConfig:
+      service: {name: hedgehog-webhook, namespace: hedgehog-system, path: /mutate, port: 443}
+    rules:
+      - {apiGroups: [""], apiVersions: [v1], operations: [CREATE], resources: [pods]}
+    failurePolicy: Ignore
+    sideEffects: None
+    admissionReviewVersions: [v1]
+    timeoutSeconds: 5
+    reinvocationPolicy: Never
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: hedgehog
+webhooks:
+  - name: workloads.hedgehog.io
+    clientConfig:
+      service: {name: hedgehog-webhook, namespace: hedgehog-system, path: /validate, port: 443}
+    rules:
+      - {apiGroups: [""], apiVersions: [v1], operations: [CREATE], resources: [pods]}
+      - {apiGroups: [apps], apiVersions: [v1], operations: [CREATE, UPDATE], resources: [deployments, statefulsets, daemonsets, replicasets]}
+      - {apiGroups: [batch], apiVersions: [v1], operations: [CREATE, UPDATE], resources: [jobs, cronjobs]}
+      - {apiGroups: [argoproj.io], apiVersions: ["*"], operations: [CREATE, UPDATE], resources: [rollouts]}
+    failurePolicy: Ignore
+    sideEffects: None
+    admissionReviewVersions: [v1]
+    timeoutSeconds: 25 # inline scans answer after 20 s

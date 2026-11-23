@@ -1,0 +1,6706 @@
+{
+ "distro": {
+  "name": "alpine",
+  "version": "3.18.3",
+  "idLike": []
+ },
+ "matches": [
+  {
+   "vulnerability": {
+    "id": "CVE-2026-111497",
+    "severity": "Critical",
+    "fix": {
+     "versions": [
+      "11.0.0",
+      "22.23.4",
+      "24.22.1",
+      "26.12.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 97.125,
+    "epss": [
+     {
+      "cve": "CVE-2026-111497",
+      "epss": 0.99931,
+      "percentile": 0.9997
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 9.8
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 9.2
+      }
+     }
+    ],
+    "knownExploited": [
+     {
+      "cve": "CVE-2026-111497",
+      "knownRansomwareCampaignUse": "unknown"
+     }
+    ]
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-44487",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "18.18.2",
+      "20.8.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 78.75000000000001,
+    "epss": [
+     {
+      "cve": "CVE-2023-44487",
+      "epss": 0.99999,
+      "percentile": 0.99998
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": [
+     {
+      "cve": "CVE-2023-44487",
+      "knownRansomwareCampaignUse": "unknown"
+     }
+    ]
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-27983",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "18.20.1",
+      "20.12.1",
+      "21.7.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 65.769655,
+    "epss": [
+     {
+      "cve": "CVE-2024-27983",
+      "epss": 0.83783,
+      "percentile": 0.99695
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-6119",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.7-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 49.936499999999995,
+    "epss": [
+     {
+      "cve": "CVE-2024-6119",
+      "epss": 0.66582,
+      "percentile": 0.99304
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-6119",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.7-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 49.936499999999995,
+    "epss": [
+     {
+      "cve": "CVE-2024-6119",
+      "epss": 0.66582,
+      "percentile": 0.99304
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-2511",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.4-r6"
+     ],
+     "state": "fixed"
+    },
+    "risk": 32.32068,
+    "epss": [
+     {
+      "cve": "CVE-2024-2511",
+      "epss": 0.59304,
+      "percentile": 0.9914
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-2511",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.4-r6"
+     ],
+     "state": "fixed"
+    },
+    "risk": 32.32068,
+    "epss": [
+     {
+      "cve": "CVE-2024-2511",
+      "epss": 0.59304,
+      "percentile": 0.9914
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-21710",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "20.20.2",
+      "22.22.2",
+      "24.14.1",
+      "25.8.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 19.46175,
+    "epss": [
+     {
+      "cve": "CVE-2026-21710",
+      "epss": 0.25949,
+      "percentile": 0.98025
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-9143",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.7-r1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 10.174460000000002,
+    "epss": [
+     {
+      "cve": "CVE-2024-9143",
+      "epss": 0.12484,
+      "percentile": 0.96318
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.8
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-9143",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.7-r1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 10.174460000000002,
+    "epss": [
+     {
+      "cve": "CVE-2024-9143",
+      "epss": 0.12484,
+      "percentile": 0.96318
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.8
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-2p57-rm9w-gvfp",
+    "severity": "High",
+    "fix": {
+     "versions": [],
+     "state": "not-fixed"
+    },
+    "risk": 6.45762,
+    "epss": [
+     {
+      "cve": "CVE-2024-29415",
+      "epss": 0.08279,
+      "percentile": 0.95048
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.1
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "ip",
+    "version": "2.0.0",
+    "type": "npm",
+    "purl": "pkg:npm/ip@2.0.0",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/ip/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-5535",
+    "severity": "Critical",
+    "fix": {
+     "versions": [
+      "3.1.6-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 5.55127,
+    "epss": [
+     {
+      "cve": "CVE-2024-5535",
+      "epss": 0.06134,
+      "percentile": 0.9362
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 9.1
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-5535",
+    "severity": "Critical",
+    "fix": {
+     "versions": [
+      "3.1.6-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 5.55127,
+    "epss": [
+     {
+      "cve": "CVE-2024-5535",
+      "epss": 0.06134,
+      "percentile": 0.9362
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 9.1
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-4741",
+    "severity": "Critical",
+    "fix": {
+     "versions": [
+      "3.1.6-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 3.07944,
+    "epss": [
+     {
+      "cve": "CVE-2024-4741",
+      "epss": 0.03276,
+      "percentile": 0.88732
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 9.8
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-4741",
+    "severity": "Critical",
+    "fix": {
+     "versions": [
+      "3.1.6-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 3.07944,
+    "epss": [
+     {
+      "cve": "CVE-2024-4741",
+      "epss": 0.03276,
+      "percentile": 0.88732
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 9.8
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-59465",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "20.20.0",
+      "22.22.0",
+      "24.13.0",
+      "25.3.0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 2.9715000000000003,
+    "epss": [
+     {
+      "cve": "CVE-2025-59465",
+      "epss": 0.03962,
+      "percentile": 0.907
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-5363",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.4-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 2.95425,
+    "epss": [
+     {
+      "cve": "CVE-2023-5363",
+      "epss": 0.03939,
+      "percentile": 0.90643
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-5363",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.4-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 2.95425,
+    "epss": [
+     {
+      "cve": "CVE-2023-5363",
+      "epss": 0.03939,
+      "percentile": 0.90643
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-5678",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.4-r1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 2.621865,
+    "epss": [
+     {
+      "cve": "CVE-2023-5678",
+      "epss": 0.05091,
+      "percentile": 0.92554
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-5678",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.4-r1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 2.621865,
+    "epss": [
+     {
+      "cve": "CVE-2023-5678",
+      "epss": 0.05091,
+      "percentile": 0.92554
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-55131",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "20.20.0",
+      "22.22.0",
+      "24.13.0",
+      "25.3.0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 2.52215,
+    "epss": [
+     {
+      "cve": "CVE-2025-55131",
+      "epss": 0.03455,
+      "percentile": 0.8932
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.1
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.1
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-22019",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "18.19.1",
+      "20.11.1",
+      "21.6.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 2.376,
+    "epss": [
+     {
+      "cve": "CVE-2024-22019",
+      "epss": 0.03168,
+      "percentile": 0.88327
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-c2qf-rxjj-qqgw",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "7.5.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 2.07075,
+    "epss": [
+     {
+      "cve": "CVE-2022-25883",
+      "epss": 0.02761,
+      "percentile": 0.86623
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "semver",
+    "version": "7.3.7",
+    "type": "npm",
+    "purl": "pkg:npm/semver@7.3.7",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/semver/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-0727",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.4-r5"
+     ],
+     "state": "fixed"
+    },
+    "risk": 1.6731750000000003,
+    "epss": [
+     {
+      "cve": "CVE-2024-0727",
+      "epss": 0.03187,
+      "percentile": 0.88398
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-0727",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.4-r5"
+     ],
+     "state": "fixed"
+    },
+    "risk": 1.6731750000000003,
+    "epss": [
+     {
+      "cve": "CVE-2024-0727",
+      "epss": 0.03187,
+      "percentile": 0.88398
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-6237",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.4-r4"
+     ],
+     "state": "fixed"
+    },
+    "risk": 1.380485,
+    "epss": [
+     {
+      "cve": "CVE-2023-6237",
+      "epss": 0.02533,
+      "percentile": 0.85318
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-6237",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.4-r4"
+     ],
+     "state": "fixed"
+    },
+    "risk": 1.380485,
+    "epss": [
+     {
+      "cve": "CVE-2023-6237",
+      "epss": 0.02533,
+      "percentile": 0.85318
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-6129",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.4-r3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 1.3357249999999998,
+    "epss": [
+     {
+      "cve": "CVE-2023-6129",
+      "epss": 0.02323,
+      "percentile": 0.83901
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-6129",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.4-r3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 1.3357249999999998,
+    "epss": [
+     {
+      "cve": "CVE-2023-6129",
+      "epss": 0.02323,
+      "percentile": 0.83901
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-46809",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "18.19.1",
+      "20.11.1",
+      "21.6.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.9699900000000001,
+    "epss": [
+     {
+      "cve": "CVE-2023-46809",
+      "epss": 0.01302,
+      "percentile": 0.71199
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.4
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-38552",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "18.18.2",
+      "20.8.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.927,
+    "epss": [
+     {
+      "cve": "CVE-2023-38552",
+      "epss": 0.01236,
+      "percentile": 0.69808
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-21637",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "20.20.0",
+      "22.22.0",
+      "24.13.0",
+      "25.3.0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.7944899999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-21637",
+      "epss": 0.01119,
+      "percentile": 0.66952
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-22025",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "18.19.1",
+      "20.11.1",
+      "21.6.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.7526749999999999,
+    "epss": [
+     {
+      "cve": "CVE-2024-22025",
+      "epss": 0.01309,
+      "percentile": 0.71358
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-23085",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "18.20.6",
+      "20.18.2",
+      "22.13.1",
+      "23.6.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.704005,
+    "epss": [
+     {
+      "cve": "CVE-2025-23085",
+      "epss": 0.01367,
+      "percentile": 0.72554
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-27982",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "18.20.1",
+      "20.12.1",
+      "21.7.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.664125,
+    "epss": [
+     {
+      "cve": "CVE-2024-27982",
+      "epss": 0.01155,
+      "percentile": 0.67805
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-22020",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "18.20.4",
+      "20.15.1",
+      "22.4.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.6347999999999999,
+    "epss": [
+     {
+      "cve": "CVE-2024-22020",
+      "epss": 0.01104,
+      "percentile": 0.66583
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-4603",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.5-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.63139,
+    "epss": [
+     {
+      "cve": "CVE-2024-4603",
+      "epss": 0.01226,
+      "percentile": 0.69577
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-4603",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.5-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.63139,
+    "epss": [
+     {
+      "cve": "CVE-2024-4603",
+      "epss": 0.01226,
+      "percentile": 0.69577
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-23166",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "20.19.2",
+      "22.15.1",
+      "23.11.1",
+      "24.0.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.62325,
+    "epss": [
+     {
+      "cve": "CVE-2025-23166",
+      "epss": 0.00831,
+      "percentile": 0.58472
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-39333",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "18.18.2",
+      "20.8.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.570105,
+    "epss": [
+     {
+      "cve": "CVE-2023-39333",
+      "epss": 0.01107,
+      "percentile": 0.66678
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-f5x3-32g6-xq36",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "6.2.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.534175,
+    "epss": [
+     {
+      "cve": "CVE-2024-28863",
+      "epss": 0.00929,
+      "percentile": 0.6147
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-105482",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.4",
+      "24.22.1",
+      "26.12.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.528205,
+    "epss": [
+     {
+      "cve": "CVE-2026-105482",
+      "epss": 0.00709,
+      "percentile": 0.54414
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.4
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-123865",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.5",
+      "24.22.3",
+      "26.13.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.5099999999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-123865",
+      "epss": 0.0068,
+      "percentile": 0.53311
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-23hp-3jrh-7fpw",
+    "severity": "Critical",
+    "fix": {
+     "versions": [
+      "7.5.19"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.5048849999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-59873",
+      "epss": 0.00582,
+      "percentile": 0.48696
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 9.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-59466",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "20.20.0",
+      "22.22.0",
+      "24.13.0",
+      "25.3.0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.48492999999999997,
+    "epss": [
+     {
+      "cve": "CVE-2025-59466",
+      "epss": 0.00683,
+      "percentile": 0.53456
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-78xj-cgh5-2h22",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "2.0.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.48389999999999994,
+    "epss": [
+     {
+      "cve": "CVE-2023-42282",
+      "epss": 0.01613,
+      "percentile": 0.7658
+     }
+    ],
+    "cvss": [],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "ip",
+    "version": "2.0.0",
+    "type": "npm",
+    "purl": "pkg:npm/ip@2.0.0",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/ip/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-mh99-v99m-4gvg",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.1.17"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.48225000000000007,
+    "epss": [
+     {
+      "cve": "CVE-2026-14257",
+      "epss": 0.00643,
+      "percentile": 0.5175
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-mh99-v99m-4gvg",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.1.17"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.48225000000000007,
+    "epss": [
+     {
+      "cve": "CVE-2026-14257",
+      "epss": 0.00643,
+      "percentile": 0.5175
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-mh99-v99m-4gvg",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "2.1.3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.48225000000000007,
+    "epss": [
+     {
+      "cve": "CVE-2026-14257",
+      "epss": 0.00643,
+      "percentile": 0.5175
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "2.0.1",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@2.0.1",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-34x7-hfp2-rc4v",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "7.5.7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.47728,
+    "epss": [
+     {
+      "cve": "CVE-2026-24842",
+      "epss": 0.00608,
+      "percentile": 0.50021
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-3ppc-4f35-3m26",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.4608899999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-26996",
+      "epss": 0.00569,
+      "percentile": 0.47987
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "minimatch",
+    "version": "3.1.2",
+    "type": "npm",
+    "purl": "pkg:npm/minimatch@3.1.2",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/minimatch/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-3ppc-4f35-3m26",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.4608899999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-26996",
+      "epss": 0.00569,
+      "percentile": 0.47987
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "minimatch",
+    "version": "3.1.2",
+    "type": "npm",
+    "purl": "pkg:npm/minimatch@3.1.2",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/minimatch/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-3ppc-4f35-3m26",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "5.1.7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.4608899999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-26996",
+      "epss": 0.00569,
+      "percentile": 0.47987
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "minimatch",
+    "version": "5.1.0",
+    "type": "npm",
+    "purl": "pkg:npm/minimatch@5.1.0",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/minimatch/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-8qq5-rm4j-mr97",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "7.5.3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.46079499999999995,
+    "epss": [
+     {
+      "cve": "CVE-2026-23745",
+      "epss": 0.00587,
+      "percentile": 0.48963
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-123866",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.5",
+      "24.22.3",
+      "26.13.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.44475,
+    "epss": [
+     {
+      "cve": "CVE-2026-123866",
+      "epss": 0.00593,
+      "percentile": 0.49248
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-7r86-cg39-jmmj",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.432,
+    "epss": [
+     {
+      "cve": "CVE-2026-27903",
+      "epss": 0.00576,
+      "percentile": 0.48379
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "minimatch",
+    "version": "3.1.2",
+    "type": "npm",
+    "purl": "pkg:npm/minimatch@3.1.2",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/minimatch/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-7r86-cg39-jmmj",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.432,
+    "epss": [
+     {
+      "cve": "CVE-2026-27903",
+      "epss": 0.00576,
+      "percentile": 0.48379
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "minimatch",
+    "version": "3.1.2",
+    "type": "npm",
+    "purl": "pkg:npm/minimatch@3.1.2",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/minimatch/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-7r86-cg39-jmmj",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "5.1.8"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.432,
+    "epss": [
+     {
+      "cve": "CVE-2026-27903",
+      "epss": 0.00576,
+      "percentile": 0.48379
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "minimatch",
+    "version": "5.1.0",
+    "type": "npm",
+    "purl": "pkg:npm/minimatch@5.1.0",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/minimatch/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-106072",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.4",
+      "24.22.1",
+      "26.12.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.43055999999999994,
+    "epss": [
+     {
+      "cve": "CVE-2026-106072",
+      "epss": 0.00736,
+      "percentile": 0.55389
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-56848",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1",
+      "26.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.4305,
+    "epss": [
+     {
+      "cve": "CVE-2026-56848",
+      "epss": 0.00574,
+      "percentile": 0.48307
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-rgw5-rvv9-x895",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.1.18"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.42824999999999996,
+    "epss": [
+     {
+      "cve": "CVE-2026-69152",
+      "epss": 0.00571,
+      "percentile": 0.48143
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-rgw5-rvv9-x895",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.1.18"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.42824999999999996,
+    "epss": [
+     {
+      "cve": "CVE-2026-69152",
+      "epss": 0.00571,
+      "percentile": 0.48143
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-rgw5-rvv9-x895",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "2.1.4"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.42824999999999996,
+    "epss": [
+     {
+      "cve": "CVE-2026-69152",
+      "epss": 0.00571,
+      "percentile": 0.48143
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "2.0.1",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@2.0.1",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-21892",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "18.19.1",
+      "20.11.1",
+      "21.6.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.425715,
+    "epss": [
+     {
+      "cve": "CVE-2024-21892",
+      "epss": 0.00562,
+      "percentile": 0.47598
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.8
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-56846",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.42,
+    "epss": [
+     {
+      "cve": "CVE-2026-56846",
+      "epss": 0.0056,
+      "percentile": 0.47499
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-qffp-2rhf-9h96",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "7.5.10"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.40113499999999996,
+    "epss": [
+     {
+      "cve": "CVE-2026-29786",
+      "epss": 0.00511,
+      "percentile": 0.44455
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-r292-9mhp-454m",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "7.5.21"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.39825,
+    "epss": [
+     {
+      "cve": "CVE-2026-73566",
+      "epss": 0.00531,
+      "percentile": 0.45749
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-48937",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.0",
+      "24.17.0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.398235,
+    "epss": [
+     {
+      "cve": "CVE-2026-48937",
+      "epss": 0.00573,
+      "percentile": 0.48225
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-23c5-xmqv-rm74",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.4"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.39375,
+    "epss": [
+     {
+      "cve": "CVE-2026-27904",
+      "epss": 0.00525,
+      "percentile": 0.45364
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "minimatch",
+    "version": "3.1.2",
+    "type": "npm",
+    "purl": "pkg:npm/minimatch@3.1.2",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/minimatch/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-23c5-xmqv-rm74",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "3.1.4"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.39375,
+    "epss": [
+     {
+      "cve": "CVE-2026-27904",
+      "epss": 0.00525,
+      "percentile": 0.45364
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "minimatch",
+    "version": "3.1.2",
+    "type": "npm",
+    "purl": "pkg:npm/minimatch@3.1.2",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/minimatch/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-23c5-xmqv-rm74",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "5.1.8"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.39375,
+    "epss": [
+     {
+      "cve": "CVE-2026-27904",
+      "epss": 0.00525,
+      "percentile": 0.45364
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "minimatch",
+    "version": "5.1.0",
+    "type": "npm",
+    "purl": "pkg:npm/minimatch@5.1.0",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/minimatch/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-6j4f-fj2g-mc7p",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.1.19"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.36825,
+    "epss": [
+     {
+      "cve": "CVE-2026-102276",
+      "epss": 0.00491,
+      "percentile": 0.43044
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-6j4f-fj2g-mc7p",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.1.19"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.36825,
+    "epss": [
+     {
+      "cve": "CVE-2026-102276",
+      "epss": 0.00491,
+      "percentile": 0.43044
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-qhr7-859c-m2p7",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.1.20"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.36825,
+    "epss": [
+     {
+      "cve": "CVE-2026-102278",
+      "epss": 0.00491,
+      "percentile": 0.43044
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-qhr7-859c-m2p7",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.1.20"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.36825,
+    "epss": [
+     {
+      "cve": "CVE-2026-102278",
+      "epss": 0.00491,
+      "percentile": 0.43044
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-6j4f-fj2g-mc7p",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "2.1.5"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.36825,
+    "epss": [
+     {
+      "cve": "CVE-2026-102276",
+      "epss": 0.00491,
+      "percentile": 0.43044
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "2.0.1",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@2.0.1",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-qhr7-859c-m2p7",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "2.1.6"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.36825,
+    "epss": [
+     {
+      "cve": "CVE-2026-102278",
+      "epss": 0.00491,
+      "percentile": 0.43044
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "2.0.1",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@2.0.1",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-13176",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.8-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.35951999999999995,
+    "epss": [
+     {
+      "cve": "CVE-2024-13176",
+      "epss": 0.00749,
+      "percentile": 0.55826
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 4.6
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libcrypto3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libcrypto3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-13176",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "3.1.8-r0"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.35951999999999995,
+    "epss": [
+     {
+      "cve": "CVE-2024-13176",
+      "epss": 0.00749,
+      "percentile": 0.55826
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 4.6
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "libssl3",
+    "version": "3.1.2-r0",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/libssl3@3.1.2-r0?arch=x86_64&distro=alpine-3.18.3&upstream=openssl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-123872",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.5",
+      "24.22.3",
+      "26.13.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.3393,
+    "epss": [
+     {
+      "cve": "CVE-2026-123872",
+      "epss": 0.00435,
+      "percentile": 0.38526
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.1
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-8x88-c5mf-7j5w",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "7.5.18"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.33852,
+    "epss": [
+     {
+      "cve": "CVE-2026-59874",
+      "epss": 0.00434,
+      "percentile": 0.38426
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 8.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-w8wr-v893-vjvp",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "7.5.18"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.33166,
+    "epss": [
+     {
+      "cve": "CVE-2026-59871",
+      "epss": 0.00644,
+      "percentile": 0.51803
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-106069",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.4",
+      "24.22.1",
+      "26.12.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.32854500000000003,
+    "epss": [
+     {
+      "cve": "CVE-2026-106069",
+      "epss": 0.00441,
+      "percentile": 0.39069
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.4
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-123864",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.5",
+      "24.22.3",
+      "26.13.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.31356,
+    "epss": [
+     {
+      "cve": "CVE-2026-123864",
+      "epss": 0.00402,
+      "percentile": 0.35239
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.1
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-23167",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "20.19.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.29669999999999996,
+    "epss": [
+     {
+      "cve": "CVE-2025-23167",
+      "epss": 0.00516,
+      "percentile": 0.448
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-f886-m6hf-6m8v",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.1.13"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.262775,
+    "epss": [
+     {
+      "cve": "CVE-2026-33750",
+      "epss": 0.00457,
+      "percentile": 0.40435
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-f886-m6hf-6m8v",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.1.13"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.262775,
+    "epss": [
+     {
+      "cve": "CVE-2026-33750",
+      "epss": 0.00457,
+      "percentile": 0.40435
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-f886-m6hf-6m8v",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "2.0.3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.262775,
+    "epss": [
+     {
+      "cve": "CVE-2026-33750",
+      "epss": 0.00457,
+      "percentile": 0.40435
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "2.0.1",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@2.0.1",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-w4pp-8pjf-rmxw",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "21.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.26123,
+    "epss": [
+     {
+      "cve": "CVE-2026-9496",
+      "epss": 0.00346,
+      "percentile": 0.28724
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "pacote",
+    "version": "13.6.2",
+    "type": "npm",
+    "purl": "pkg:npm/pacote@13.6.2",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/pacote/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-3jxr-9vmj-r5cp",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.1.16"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.25479999999999997,
+    "epss": [
+     {
+      "cve": "CVE-2026-13149",
+      "epss": 0.00364,
+      "percentile": 0.30852
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-3jxr-9vmj-r5cp",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.1.16"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.25479999999999997,
+    "epss": [
+     {
+      "cve": "CVE-2026-13149",
+      "epss": 0.00364,
+      "percentile": 0.30852
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-3jxr-9vmj-r5cp",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "2.1.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.25479999999999997,
+    "epss": [
+     {
+      "cve": "CVE-2026-13149",
+      "epss": 0.00364,
+      "percentile": 0.30852
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "2.0.1",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@2.0.1",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-26519",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.2.4-r3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.25375,
+    "epss": [
+     {
+      "cve": "CVE-2025-26519",
+      "epss": 0.0035,
+      "percentile": 0.29189
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "musl",
+    "version": "1.2.4-r1",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/musl@1.2.4-r1?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-26519",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "1.2.4-r3"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.25375,
+    "epss": [
+     {
+      "cve": "CVE-2025-26519",
+      "epss": 0.0035,
+      "percentile": 0.29189
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "musl-utils",
+    "version": "1.2.4-r1",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/musl-utils@1.2.4-r1?arch=x86_64&distro=alpine-3.18.3&upstream=musl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-123875",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.5",
+      "24.22.3",
+      "26.13.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.25124500000000005,
+    "epss": [
+     {
+      "cve": "CVE-2026-123875",
+      "epss": 0.00461,
+      "percentile": 0.40768
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-83g3-92jg-28cx",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "7.5.8"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.23652,
+    "epss": [
+     {
+      "cve": "CVE-2026-26960",
+      "epss": 0.00324,
+      "percentile": 0.25882
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 7.1
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-105481",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.4",
+      "24.22.1",
+      "26.12.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.231725,
+    "epss": [
+     {
+      "cve": "CVE-2026-105481",
+      "epss": 0.00403,
+      "percentile": 0.35341
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-58042",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1",
+      "26.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.228355,
+    "epss": [
+     {
+      "cve": "CVE-2026-58042",
+      "epss": 0.00419,
+      "percentile": 0.37011
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42364",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.227325,
+    "epss": [
+     {
+      "cve": "CVE-2023-42364",
+      "epss": 0.00433,
+      "percentile": 0.38332
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42364",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.227325,
+    "epss": [
+     {
+      "cve": "CVE-2023-42364",
+      "epss": 0.00433,
+      "percentile": 0.38332
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox-binsh",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox-binsh@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42364",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.227325,
+    "epss": [
+     {
+      "cve": "CVE-2023-42364",
+      "epss": 0.00433,
+      "percentile": 0.38332
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "ssl_client",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/ssl_client@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-21714",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "20.20.2",
+      "22.22.2",
+      "24.14.1",
+      "25.8.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.227115,
+    "epss": [
+     {
+      "cve": "CVE-2026-21714",
+      "epss": 0.00441,
+      "percentile": 0.39098
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-9ppj-qmqm-q256",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "7.5.11"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.22529500000000002,
+    "epss": [
+     {
+      "cve": "CVE-2026-31802",
+      "epss": 0.00287,
+      "percentile": 0.21557
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42363",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.22260000000000002,
+    "epss": [
+     {
+      "cve": "CVE-2023-42363",
+      "epss": 0.00424,
+      "percentile": 0.37481
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42363",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.22260000000000002,
+    "epss": [
+     {
+      "cve": "CVE-2023-42363",
+      "epss": 0.00424,
+      "percentile": 0.37481
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox-binsh",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox-binsh@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42363",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.22260000000000002,
+    "epss": [
+     {
+      "cve": "CVE-2023-42363",
+      "epss": 0.00424,
+      "percentile": 0.37481
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "ssl_client",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/ssl_client@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-q2hr-2g5m-vwhr",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.1.21"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.22042,
+    "epss": [
+     {
+      "cve": "CVE-2026-102277",
+      "epss": 0.00428,
+      "percentile": 0.37865
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-q2hr-2g5m-vwhr",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.1.21"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.22042,
+    "epss": [
+     {
+      "cve": "CVE-2026-102277",
+      "epss": 0.00428,
+      "percentile": 0.37865
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-q2hr-2g5m-vwhr",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "2.1.7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.22042,
+    "epss": [
+     {
+      "cve": "CVE-2026-102277",
+      "epss": 0.00428,
+      "percentile": 0.37865
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "2.0.1",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@2.0.1",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-r6q2-hw4h-h46w",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "7.5.4"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.21516000000000002,
+    "epss": [
+     {
+      "cve": "CVE-2026-23950",
+      "epss": 0.00264,
+      "percentile": 0.18459
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.8
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-rj75-hqrm-r3gf",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "6.1.5"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.212005,
+    "epss": [
+     {
+      "cve": "CVE-2026-104844",
+      "epss": 0.00389,
+      "percentile": 0.33722
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "postcss-selector-parser",
+    "version": "6.0.10",
+    "type": "npm",
+    "purl": "pkg:npm/postcss-selector-parser@6.0.10",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/postcss-selector-parser/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42366",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r6"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.2079,
+    "epss": [
+     {
+      "cve": "CVE-2023-42366",
+      "epss": 0.00396,
+      "percentile": 0.34599
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42366",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r6"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.2079,
+    "epss": [
+     {
+      "cve": "CVE-2023-42366",
+      "epss": 0.00396,
+      "percentile": 0.34599
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox-binsh",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox-binsh@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42366",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r6"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.2079,
+    "epss": [
+     {
+      "cve": "CVE-2023-42366",
+      "epss": 0.00396,
+      "percentile": 0.34599
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "ssl_client",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/ssl_client@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42365",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.20632500000000004,
+    "epss": [
+     {
+      "cve": "CVE-2023-42365",
+      "epss": 0.00393,
+      "percentile": 0.34242
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42365",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.20632500000000004,
+    "epss": [
+     {
+      "cve": "CVE-2023-42365",
+      "epss": 0.00393,
+      "percentile": 0.34242
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox-binsh",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox-binsh@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2023-42365",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "1.36.1-r7"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.20632500000000004,
+    "epss": [
+     {
+      "cve": "CVE-2023-42365",
+      "epss": 0.00393,
+      "percentile": 0.34242
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "ssl_client",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/ssl_client@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-21713",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "20.20.2",
+      "22.22.2",
+      "24.14.1",
+      "25.8.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.204375,
+    "epss": [
+     {
+      "cve": "CVE-2026-21713",
+      "epss": 0.00375,
+      "percentile": 0.32108
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-48617",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.0",
+      "24.17.0",
+      "26.3.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.198125,
+    "epss": [
+     {
+      "cve": "CVE-2026-48617",
+      "epss": 0.00317,
+      "percentile": 0.2504
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.2
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 1.8
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-106074",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.4",
+      "24.22.1",
+      "26.12.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.19551,
+    "epss": [
+     {
+      "cve": "CVE-2026-106074",
+      "epss": 0.00399,
+      "percentile": 0.34827
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 4.8
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-23165",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "20.19.2",
+      "22.15.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.18994499999999997,
+    "epss": [
+     {
+      "cve": "CVE-2025-23165",
+      "epss": 0.00567,
+      "percentile": 0.47894
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-gvwx-54wh-qm9j",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "7.5.17"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.18231000000000003,
+    "epss": [
+     {
+      "cve": "CVE-2026-59875",
+      "epss": 0.00354,
+      "percentile": 0.29752
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-60876",
+    "severity": "Medium",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.17939999999999998,
+    "epss": [
+     {
+      "cve": "CVE-2025-60876",
+      "epss": 0.00312,
+      "percentile": 0.24528
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-60876",
+    "severity": "Medium",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.17939999999999998,
+    "epss": [
+     {
+      "cve": "CVE-2025-60876",
+      "epss": 0.00312,
+      "percentile": 0.24528
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox-binsh",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox-binsh@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-60876",
+    "severity": "Medium",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.17939999999999998,
+    "epss": [
+     {
+      "cve": "CVE-2025-60876",
+      "epss": 0.00312,
+      "percentile": 0.24528
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "ssl_client",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/ssl_client@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-58040",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1",
+      "26.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.177975,
+    "epss": [
+     {
+      "cve": "CVE-2026-58040",
+      "epss": 0.00315,
+      "percentile": 0.2488
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-73rr-hh4g-fpgx",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "5.2.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.17556000000000002,
+    "epss": [
+     {
+      "cve": "CVE-2026-24001",
+      "epss": 0.00616,
+      "percentile": 0.50448
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 2.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "diff",
+    "version": "5.1.0",
+    "type": "npm",
+    "purl": "pkg:npm/diff@5.1.0",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/diff/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-58043",
+    "severity": "High",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1",
+      "26.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.17072250000000003,
+    "epss": [
+     {
+      "cve": "CVE-2026-58043",
+      "epss": 0.00221,
+      "percentile": 0.12691
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.4
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 7.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-v6h2-p8h4-qcjw",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "1.1.12"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.15886,
+    "epss": [
+     {
+      "cve": "CVE-2025-5889",
+      "epss": 0.00611,
+      "percentile": 0.50183
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.1
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 1.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/node-gyp/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-v6h2-p8h4-qcjw",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "1.1.12"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.15886,
+    "epss": [
+     {
+      "cve": "CVE-2025-5889",
+      "epss": 0.00611,
+      "percentile": 0.50183
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.1
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 1.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "1.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@1.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/rimraf/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-v6h2-p8h4-qcjw",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "2.0.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.15886,
+    "epss": [
+     {
+      "cve": "CVE-2025-5889",
+      "epss": 0.00611,
+      "percentile": 0.50183
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.1
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 1.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "brace-expansion",
+    "version": "2.0.1",
+    "type": "npm",
+    "purl": "pkg:npm/brace-expansion@2.0.1",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-123877",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.5",
+      "24.22.3",
+      "26.13.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.15575999999999998,
+    "epss": [
+     {
+      "cve": "CVE-2026-123877",
+      "epss": 0.00264,
+      "percentile": 0.1846
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.8
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-21717",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "20.20.2",
+      "22.22.2",
+      "24.14.1",
+      "25.8.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.152055,
+    "epss": [
+     {
+      "cve": "CVE-2026-21717",
+      "epss": 0.00279,
+      "percentile": 0.20618
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 5.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-58041",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1",
+      "26.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.14626,
+    "epss": [
+     {
+      "cve": "CVE-2026-58041",
+      "epss": 0.00284,
+      "percentile": 0.21233
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-40200",
+    "severity": "High",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.13026000000000001,
+    "epss": [
+     {
+      "cve": "CVE-2026-40200",
+      "epss": 0.00167,
+      "percentile": 0.05941
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.1
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "musl",
+    "version": "1.2.4-r1",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/musl@1.2.4-r1?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-40200",
+    "severity": "High",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.13026000000000001,
+    "epss": [
+     {
+      "cve": "CVE-2026-40200",
+      "epss": 0.00167,
+      "percentile": 0.05941
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 8.1
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "musl-utils",
+    "version": "1.2.4-r1",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/musl-utils@1.2.4-r1?arch=x86_64&distro=alpine-3.18.3&upstream=musl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-58045",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1",
+      "26.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.12320000000000002,
+    "epss": [
+     {
+      "cve": "CVE-2026-58045",
+      "epss": 0.0022,
+      "percentile": 0.12518
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-27171",
+    "severity": "Medium",
+    "fix": {
+     "versions": [],
+     "state": "unknown"
+    },
+    "risk": 0.11223999999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-27171",
+      "epss": 0.00244,
+      "percentile": 0.15724
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 5.5
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 2.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "zlib",
+    "version": "1.2.13-r1",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/zlib@1.2.13-r1?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-48931",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "22.23.0",
+      "24.17.0",
+      "26.3.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.11155499999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-48931",
+      "epss": 0.00333,
+      "percentile": 0.27192
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.7
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 3.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-56847",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1",
+      "26.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.10815500000000002,
+    "epss": [
+     {
+      "cve": "CVE-2026-56847",
+      "epss": 0.00223,
+      "percentile": 0.1301
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.1
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-106073",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "22.23.4",
+      "24.22.1",
+      "26.12.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.10237499999999997,
+    "epss": [
+     {
+      "cve": "CVE-2026-106073",
+      "epss": 0.00325,
+      "percentile": 0.26025
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-6042",
+    "severity": "Medium",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.09919999999999998,
+    "epss": [
+     {
+      "cve": "CVE-2026-6042",
+      "epss": 0.0024,
+      "percentile": 0.1522
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 4.8
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 1.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "musl",
+    "version": "1.2.4-r1",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/musl@1.2.4-r1?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-6042",
+    "severity": "Medium",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.09919999999999998,
+    "epss": [
+     {
+      "cve": "CVE-2026-6042",
+      "epss": 0.0024,
+      "percentile": 0.1522
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 4.8
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 1.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "musl-utils",
+    "version": "1.2.4-r1",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/musl-utils@1.2.4-r1?arch=x86_64&distro=alpine-3.18.3&upstream=musl",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-123871",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.5",
+      "24.22.3",
+      "26.13.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.09688000000000001,
+    "epss": [
+     {
+      "cve": "CVE-2026-123871",
+      "epss": 0.00173,
+      "percentile": 0.06848
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-vmf3-w455-68vh",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "7.5.16"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.09281999999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-53655",
+      "epss": 0.00156,
+      "percentile": 0.04801
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 6.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "tar",
+    "version": "6.1.11",
+    "type": "npm",
+    "purl": "pkg:npm/tar@6.1.11",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/tar/package.json"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-58044",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1",
+      "26.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.090785,
+    "epss": [
+     {
+      "cve": "CVE-2026-58044",
+      "epss": 0.00271,
+      "percentile": 0.19552
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-48932",
+    "severity": "Low",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.090785,
+    "epss": [
+     {
+      "cve": "CVE-2026-48932",
+      "epss": 0.00271,
+      "percentile": 0.19526
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.7
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-123867",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.5",
+      "24.22.3",
+      "26.13.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.07314000000000001,
+    "epss": [
+     {
+      "cve": "CVE-2026-123867",
+      "epss": 0.00159,
+      "percentile": 0.05016
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 4.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-58039",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1",
+      "26.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.063945,
+    "epss": [
+     {
+      "cve": "CVE-2026-58039",
+      "epss": 0.00203,
+      "percentile": 0.10237
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-46394",
+    "severity": "Low",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.058125,
+    "epss": [
+     {
+      "cve": "CVE-2025-46394",
+      "epss": 0.00186,
+      "percentile": 0.08259
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 3.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-46394",
+    "severity": "Low",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.058125,
+    "epss": [
+     {
+      "cve": "CVE-2025-46394",
+      "epss": 0.00186,
+      "percentile": 0.08259
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 3.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox-binsh",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox-binsh@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2025-46394",
+    "severity": "Low",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.058125,
+    "epss": [
+     {
+      "cve": "CVE-2025-46394",
+      "epss": 0.00186,
+      "percentile": 0.08259
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 3.2
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "ssl_client",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/ssl_client@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-56850",
+    "severity": "Medium",
+    "fix": {
+     "versions": [
+      "22.23.2",
+      "24.18.1",
+      "26.5.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.05735,
+    "epss": [
+     {
+      "cve": "CVE-2026-56850",
+      "epss": 0.00124,
+      "percentile": 0.02103
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 4.4
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 4.1
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-123862",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "22.23.5",
+      "24.22.3",
+      "26.13.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.054575,
+    "epss": [
+     {
+      "cve": "CVE-2026-123862",
+      "epss": 0.00185,
+      "percentile": 0.08181
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 2.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-58251",
+    "severity": "Low",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.04977500000000001,
+    "epss": [
+     {
+      "cve": "CVE-2024-58251",
+      "epss": 0.00181,
+      "percentile": 0.07758
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 2.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-58251",
+    "severity": "Low",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.04977500000000001,
+    "epss": [
+     {
+      "cve": "CVE-2024-58251",
+      "epss": 0.00181,
+      "percentile": 0.07758
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 2.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "busybox-binsh",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/busybox-binsh@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2024-58251",
+    "severity": "Low",
+    "fix": {
+     "versions": [],
+     "state": ""
+    },
+    "risk": 0.04977500000000001,
+    "epss": [
+     {
+      "cve": "CVE-2024-58251",
+      "epss": 0.00181,
+      "percentile": 0.07758
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 2.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "ssl_client",
+    "version": "1.36.1-r2",
+    "type": "apk",
+    "purl": "pkg:apk/alpine/ssl_client@1.36.1-r2?arch=x86_64&distro=alpine-3.18.3&upstream=busybox",
+    "language": "",
+    "locations": [
+     {
+      "path": "/lib/apk/db/installed"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-21715",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "20.20.2",
+      "22.22.2",
+      "24.14.1",
+      "25.8.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.04819499999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-21715",
+      "epss": 0.00153,
+      "percentile": 0.04448
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-21716",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "20.20.2",
+      "22.22.2",
+      "24.14.1",
+      "25.8.2"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.04567499999999999,
+    "epss": [
+     {
+      "cve": "CVE-2026-21716",
+      "epss": 0.00145,
+      "percentile": 0.0373
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2026-123829",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "22.23.5",
+      "24.22.3",
+      "26.13.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.04427500000000001,
+    "epss": [
+     {
+      "cve": "CVE-2026-123829",
+      "epss": 0.00161,
+      "percentile": 0.05246
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 2.5
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "node",
+    "version": "16.20.2",
+    "type": "binary",
+    "purl": "pkg:generic/node@16.20.2",
+    "language": "",
+    "locations": [
+     {
+      "path": "/usr/local/bin/node"
+     }
+    ]
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "GHSA-vpq2-c234-7xj6",
+    "severity": "Low",
+    "fix": {
+     "versions": [
+      "2.0.1"
+     ],
+     "state": "fixed"
+    },
+    "risk": 0.03584,
+    "epss": [
+     {
+      "cve": "CVE-2026-3449",
+      "epss": 0.00128,
+      "percentile": 0.02471
+     }
+    ],
+    "cvss": [
+     {
+      "metrics": {
+       "baseScore": 3.3
+      }
+     },
+     {
+      "metrics": {
+       "baseScore": 1.9
+      }
+     }
+    ],
+    "knownExploited": []
+   },
+   "artifact": {
+    "name": "@tootallnate/once",
+    "version": "2.0.0",
+    "type": "npm",
+    "purl": "pkg:npm/%40tootallnate/once@2.0.0",
+    "language": "javascript",
+    "locations": [
+     {
+      "path": "/usr/local/lib/node_modules/npm/node_modules/@tootallnate/once/package.json"
+     }
+    ]
+   }
+  }
+ ]
+}
